@@ -1,10 +1,19 @@
 import React from "react";
-import {View} from "react-native";
+import {Animated, View} from "react-native";
 import {SplashPageStyles} from "./SplahsPageStyles.ts";
+import SplashPageRotation from "./animations/SplashPageRotation.ts";
+import SplashPageBackground from "./animations/SplashPageBackground.ts";
 
-const SplashPage: React.FC = () => {
+const SplashPage: React.FC<{ delay: number }> = ({delay}) => {
+    const rotateY = SplashPageRotation(delay);
+    const bgColor = SplashPageBackground(delay);
+
     return (
-        <View style={SplashPageStyles.page}></View>
+        <View>
+            <Animated.View
+                style={[SplashPageStyles.page, {backgroundColor: bgColor, transform: [{rotateY}]}]}>
+            </Animated.View>
+        </View>
     );
 };
 

@@ -13,6 +13,7 @@ export const SplashPageStyles = StyleSheet.create({
         top: -4,
         overflow: 'hidden',
         backgroundColor: '#8455b2',
+        transformOrigin: 'left',
         transform: [
             {perspective: 150},
             {rotateY: '0deg'},
