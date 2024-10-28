@@ -1,9 +1,20 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text} from 'react-native';
 import SplashPage from "../../components/SplashComponents/SplashPage.tsx";
 import {SplashScreenStyles} from "./SplanshScreenStyles.ts";
+import {HealthCheck} from "../../core/entities/HealthCheck";
+import {getHealth} from "../../core/services/HealthCheck/getHealth.ts";
 
-const SplashScreen: React.FC = () => {
+const SplashScreen = () => {
+    const [healthData, setData] = useState<HealthCheck>();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await getHealth();
+            setData(result);
+        };
+        fetchData().then(() => console.log(healthData));
+    }, []);
     return (
         <View style={SplashScreenStyles.container}>
             <View style={SplashScreenStyles.loader}>
