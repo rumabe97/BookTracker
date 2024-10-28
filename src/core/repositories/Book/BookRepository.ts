@@ -3,7 +3,7 @@ import {cleanParams} from "../utils/CleanParams.ts";
 import {BookStatus} from "../../entities/BookStatus";
 import {authFetch} from "../utils/authFetch.ts";
 
-const {API_URL = 'http://localhost:8000'} = process.env;
+const {API_URL = 'https://book-tracker-api-dev.vercel.app'} = process.env;
 
 type Response<T> = { count: number; next: null; previous: null; results: T[] };
 
@@ -32,7 +32,7 @@ const getBooks = async (searchBook: SearchBookDto): Promise<Response<BookDto>> =
     }
 };
 
-const crateBook = async (book: CreateBookDto): Promise<BookDto> => {
+const createBook = async (book: CreateBookDto): Promise<BookDto> => {
     try {
         const response = await authFetch(`${API_URL}/v0/book`, {
             method: 'POST',
@@ -161,7 +161,7 @@ const getBooksGoogle = async (searchBook: SearchBookGoogleDto): Promise<BookDto[
 };
 export const BookRepository = {
     getBooks,
-    crateBook,
+    createBook,
     getBook,
     deleteBook,
     updateBookStatus,

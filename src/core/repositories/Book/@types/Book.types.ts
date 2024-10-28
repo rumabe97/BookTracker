@@ -2,6 +2,7 @@ import {BookStatus} from "../../../entities/BookStatus";
 
 export interface BookDto {
     id: string;
+    idGoogle: string;
     title: string;
     subTitle: string;
     description: string;
@@ -43,7 +44,6 @@ export interface SearchBookGoogleDto {
 }
 
 export interface CreateBookDto {
-    title: string;
-    author: string;
+    idGoogle: string;
     status: BookStatus;
 }

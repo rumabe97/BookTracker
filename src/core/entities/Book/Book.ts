@@ -2,6 +2,7 @@ import {BookStatus} from "../BookStatus";
 
 export interface BookProps {
     _id: string;
+    idGoogle: string;
     title: string;
     subTitle: string;
     description: string;
@@ -22,6 +23,7 @@ export interface BookProps {
 
 export class Book {
     _id: string;
+    idGoogle: string;
     title: string;
     subTitle: string;
     description: string;
@@ -41,6 +43,7 @@ export class Book {
 
     constructor(book: BookProps) {
         this._id = book._id;
+        this.idGoogle = book.idGoogle;
         this.title = book.title;
         this.subTitle = book.subTitle;
         this.description = book.description;
