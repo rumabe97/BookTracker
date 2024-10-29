@@ -1,5 +1,5 @@
 export interface healthCheckDto {
-    database: string,
-    google_books_api: string;
-    status: string;
+    database: 'ok' | 'error';
+    google_books_api: 'ok' | 'error';
+    status: 'healthy' | 'unhealthy';
 }

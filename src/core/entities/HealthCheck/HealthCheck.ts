@@ -1,13 +1,13 @@
 export interface HealthCheckProps {
-    database: string;
-    googleBooksApi: string;
-    status: string;
+    database: 'ok' | 'error';
+    googleBooksApi: 'ok' | 'error';
+    status: 'healthy' | 'unhealthy';
 }
 
 export class HealthCheck {
-    database: string;
-    googleBooksApi: string;
-    status: string;
+    database: 'ok' | 'error';
+    googleBooksApi: 'ok' | 'error';
+    status: 'healthy' | 'unhealthy';
 
     constructor(healthCheck: HealthCheckProps) {
         this.database = healthCheck.database;

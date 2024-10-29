@@ -1,19 +1,23 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {View, Text} from 'react-native';
 import SplashPage from "../../components/SplashComponents/SplashPage.tsx";
 import {SplashScreenStyles} from "./SplanshScreenStyles.ts";
-import {HealthCheck} from "../../core/entities/HealthCheck";
 import {getHealth} from "../../core/services/HealthCheck/getHealth.ts";
+import {useNavigation} from "@react-navigation/native";
 
 const SplashScreen = () => {
-    const [healthData, setData] = useState<HealthCheck>();
+    const navigation = useNavigation();
 
     useEffect(() => {
         const fetchData = async () => {
             const result = await getHealth();
-            setData(result);
+
+            if (result.status === 'healthy') navigation.reset({
+                index: 0,
+                routes: [{name: 'HomeScreen'}]
+            });
         };
-        fetchData().then(() => console.log(healthData));
+        fetchData().then();
     }, []);
     return (
         <View style={SplashScreenStyles.container}>
