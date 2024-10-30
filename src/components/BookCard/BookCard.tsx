@@ -13,6 +13,9 @@ const BookCard = (bookt: any) => {
                 <Text style={[BookCardStyles.bookTitle, {color: false ? '#ffffff' : '#333333'}]}
                       numberOfLines={1}>{book.title}</Text>
                 <Text style={[BookCardStyles.bookAuthor, {color: false ? '#cccccc' : '#666666'}]}>{book.author}</Text>
+                <Text style={[BookCardStyles.publishedDate, {color: false ? '#cccccc' : '#666666'}]}>
+                    Published: {new Date(book.publishedDate).toLocaleDateString()}
+                </Text>
                 <View style={BookCardStyles.ratingContainer}>
                     <Text style={[BookCardStyles.ratingStar, {color: '#FFD700'}]}>★</Text>
                     <Text

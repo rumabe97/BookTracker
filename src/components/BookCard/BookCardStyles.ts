@@ -45,4 +45,8 @@ export const BookCardStyles = StyleSheet.create({
         fontSize: 12,
         fontWeight: 'bold',
     },
+    publishedDate: {
+        fontSize: 10,
+        marginTop: 4,
+    },
 });
