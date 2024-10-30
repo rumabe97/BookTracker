@@ -5,4 +5,5 @@ export interface ButtonProps {
     title: string;
     buttonStyle?: StyleProp<ViewStyle>;
     textStyle?: StyleProp<TextStyle>;
+    disabled?: boolean;
 }
