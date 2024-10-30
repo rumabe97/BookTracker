@@ -12,10 +12,12 @@ const SplashScreen = () => {
         const fetchData = async () => {
             const result = await getHealth();
 
-            if (result.status === 'healthy') navigation.reset({
-                index: 0,
-                routes: [{name: 'HomeScreen'}]
-            });
+            if (result.status === 'healthy') {
+                navigation.reset({
+                    index: 0,
+                    routes: [{name: 'HomeScreen' as never}]
+                });
+            }
         };
         fetchData().then();
     }, []);
