@@ -1,30 +1,43 @@
 import {Text, View} from "react-native";
-import React from "react";
+import React, {useState} from "react";
 import {PaginatorStyles} from "./PaginatorStyles.ts";
 import Button from "../Button/Button.tsx";
 import {useTheme} from "../../context/DarkMode/DarkModeProvider.tsx";
 
-const Paginator = () => {
+const Paginator = ({handlePagination, pages}: { handlePagination: (newValue: number) => void, pages: number }) => {
     const {currentTheme} = useTheme();
     const paginatorStyles = PaginatorStyles(currentTheme);
+    const [currentPage, setCurrentPage] = useState(1);
     return (
         <View style={paginatorStyles.pagination}>
             <Button
                 title="Previous"
-                onPress={() => console.log('previous')}
+                onPress={() => {
+                    setCurrentPage((prevPage) => {
+                        const newPage = prevPage - 1;
+                        handlePagination(newPage);
+                        return newPage;
+                    });
+                }}
                 buttonStyle={paginatorStyles.paginationButton}
                 textStyle={paginatorStyles.paginationText}
-                disabled={1 === 1}
+                disabled={currentPage === 1}
             />
             <Text style={paginatorStyles.paginationInfo}>
-                Page {1} of {1}
+                Page {currentPage} of {pages}
             </Text>
             <Button
                 title="Next"
-                onPress={() => console.log('next')}
+                onPress={() => {
+                    setCurrentPage((prevPage) => {
+                        const newPage = prevPage + 1;
+                        handlePagination(newPage);
+                        return newPage;
+                    });
+                }}
                 buttonStyle={paginatorStyles.paginationButton}
                 textStyle={paginatorStyles.paginationText}
-                disabled={1 === 1}
+                disabled={currentPage === pages}
             />
         </View>
     );

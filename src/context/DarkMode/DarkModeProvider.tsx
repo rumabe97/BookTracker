@@ -18,9 +18,12 @@ export const ThemeProvider = ({children}: { children: ReactNode }) => {
     }, []);
 
     const toggleTheme = async () => {
-        setIsDarkMode(!isDarkMode);
-        currentTheme = isDarkMode ? darkTheme : lightTheme;
-        await AsyncStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        setIsDarkMode((prevMode) => {
+            const newMode = !prevMode;
+            currentTheme = newMode ? darkTheme : lightTheme;
+            AsyncStorage.setItem('theme', newMode ? 'dark' : 'light');
+            return newMode;
+        });
     };
 
     return (
