@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {View, Text} from 'react-native';
-import SplashPage from "../../components/SplashComponents/SplashPage.tsx";
+import SplashPage from "../../components/SplashComponents";
 import {SplashScreenStyles} from "./SplanshScreenStyles.ts";
 import {getHealth} from "../../core/services/HealthCheck/getHealth.ts";
 import {useNavigation} from "@react-navigation/native";

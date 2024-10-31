@@ -1,7 +1,7 @@
 import {Text, View} from "react-native";
 import React, {useState} from "react";
 import {PaginatorStyles} from "./PaginatorStyles.ts";
-import Button from "../Button/Button.tsx";
+import Button from "../Button";
 import {useTheme} from "../../context/DarkMode/DarkModeProvider.tsx";
 
 const Paginator = ({handlePagination, pages}: { handlePagination: (newValue: number) => void, pages: number }) => {

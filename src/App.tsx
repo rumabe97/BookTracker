@@ -1,5 +1,5 @@
 import React from 'react';
-import AppLayout from "./layout/AppLayout.tsx";
+import AppLayout from "./layout";
 import {NavigationContainer} from "@react-navigation/native";
 import {ThemeProvider} from "./context/DarkMode/DarkModeProvider.tsx";
 

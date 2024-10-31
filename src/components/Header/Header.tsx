@@ -2,10 +2,13 @@ import {View} from "react-native";
 import React from "react";
 import {HeaderStyles} from "./HeaderStyles.ts";
 import {useTheme} from "../../context/DarkMode/DarkModeProvider.tsx";
-import Button from "../Button/Button.tsx";
+import Button from "../Button";
 import {lightTheme} from "../../styles/Themes.ts";
 
-const Header = ({drawer = () => {} }) => {
+const Header = ({
+                    drawer = () => {
+                    }
+                }) => {
     const {currentTheme, toggleTheme} = useTheme();
     const headerStyles = HeaderStyles(currentTheme);
 

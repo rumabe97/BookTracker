@@ -1,8 +1,8 @@
-import SplashScreen from "../../screens/SplashScreen/SplashScreen.tsx";
+import SplashScreen from "../../screens/SplashScreen";
 import React from "react";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {RootStackParamList} from "./StackParamList.ts";
-import HomeScreen from "../../screens/Home/HomeScreen.tsx";
+import HomeScreen from "../../screens/Home";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 

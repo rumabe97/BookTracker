@@ -3,8 +3,8 @@ import {DrawerLayoutAndroid, View} from 'react-native';
 import Router from "../core/routing/AppRouting.tsx";
 import {useNavigationState} from "@react-navigation/native";
 import {AppLayoutStyles} from "./AppLayoutStyles.ts";
-import Header from "../components/Header/Header.tsx";
-import Sidebar from "../components/Sidebar/Sidebar.tsx";
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
 
 
 const AppLayout: React.FC = () => {

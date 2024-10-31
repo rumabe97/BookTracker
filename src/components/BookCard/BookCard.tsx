@@ -1,7 +1,7 @@
 import {Image, Text, View} from "react-native";
 import React from "react";
 import {BookCardStyles} from "./BookCardStyles.ts";
-import Button from "../Button/Button.tsx";
+import Button from "../Button";
 import {Book} from "../../core/entities/Book";
 import {useTheme} from "../../context/DarkMode/DarkModeProvider.tsx";
 

@@ -1,9 +1,9 @@
-import Button from "../Button/Button.tsx";
 import React from "react";
-import {NavItem} from "../Sidebar/SidebarItems.ts";
+import {NavItem} from "../Sidebar";
 import {useNavigation, useNavigationState} from "@react-navigation/native";
 import {useTheme} from "../../context/DarkMode/DarkModeProvider.tsx";
 import {NavItemStyles} from "./NavItemStyles.ts";
+import Button from "../Button";
 
 const NavItemMenu = (item: NavItem) => {
     const navigation = useNavigation();

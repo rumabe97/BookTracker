@@ -3,9 +3,9 @@ import React from "react";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {useTheme} from "../../context/DarkMode/DarkModeProvider.tsx";
 import {SidebarStyles} from "./SidebarStyles.ts";
-import SidebarHeader from "../SidebarHeader/SidebarHeader.tsx";
+import SidebarHeader from "../SidebarHeader";
 import {navItems} from "./SidebarItems.ts";
-import NavItemMenu from "../NavItem/NavItem.tsx";
+import NavItemMenu from "../NavItem";
 
 const Sidebar = () => {
     const {currentTheme} = useTheme();
