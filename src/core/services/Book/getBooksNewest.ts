@@ -1,10 +1,11 @@
 import {BookRepository, SearchBookNewestDto} from "../../repositories/Book";
 import {Book} from "../../entities/Book";
+import {GoogleResponse} from "../../entities/GoogleResponse";
 
-export async function getBooksNewest(searchBook: SearchBookNewestDto): Promise<Book[]> {
-    const books = await BookRepository.getBooksNewest(searchBook);
+export async function getBooksNewest(searchBook: SearchBookNewestDto): Promise<GoogleResponse> {
+    const response = await BookRepository.getBooksNewest(searchBook);
 
-    return books.map(
+    const books = response.data.map(
         ({id, created_at, updated_at, ...rest}) => {
             return new Book({
                 _id: id,
@@ -14,4 +15,8 @@ export async function getBooksNewest(searchBook: SearchBookNewestDto): Promise<B
             });
         }
     );
+    return {
+        ...response,
+        data: books
+    }
 }

@@ -12,6 +12,7 @@ import {authFetch} from "../utils/authFetch.ts";
 const {API_URL = 'https://book-tracker-api-dev.vercel.app'} = process.env;
 
 type Response<T> = { count: number; next: null; previous: null; results: T[] };
+type ResponseGoogleSearch<T> = { totalItems: number; data: T[] };
 
 const getBooks = async (searchBook: SearchBookDto): Promise<Response<BookDto>> => {
     try {
@@ -118,7 +119,7 @@ const updateBookStatus = async (status: BookStatus, id: string): Promise<BookDto
     }
 };
 
-const getBooksNewest = async (searchBook: SearchBookNewestDto): Promise<BookDto[]> => {
+const getBooksNewest = async (searchBook: SearchBookNewestDto): Promise<ResponseGoogleSearch<BookDto>> => {
     try {
         const params = new URLSearchParams();
         if (searchBook.order) params.append('order', searchBook.order);
@@ -142,7 +143,7 @@ const getBooksNewest = async (searchBook: SearchBookNewestDto): Promise<BookDto[
     }
 };
 
-const getBooksGoogle = async (searchBook: SearchBookGoogleDto): Promise<BookDto[]> => {
+const getBooksGoogle = async (searchBook: SearchBookGoogleDto): Promise<ResponseGoogleSearch<BookDto>> => {
     try {
         const params = new URLSearchParams();
         if (searchBook.title) params.append('title', searchBook.title);

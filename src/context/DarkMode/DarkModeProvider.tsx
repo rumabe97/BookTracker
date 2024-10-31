@@ -10,11 +10,8 @@ export const ThemeProvider = ({children}: { children: ReactNode }) => {
 
     useEffect(() => {
         const loadTheme = async () => {
-            const savedTheme = await AsyncStorage.getItem('isDark') || Appearance.getColorScheme();
-            const theme = await AsyncStorage.getItem('theme');
-
-            currentTheme = theme ? JSON.parse(theme) : (savedTheme === 'dark' ? darkTheme : lightTheme);
-
+            const savedTheme = await AsyncStorage.getItem('theme') || Appearance.getColorScheme();
+            currentTheme = savedTheme === 'dark' ? darkTheme : lightTheme;
             setIsDarkMode(savedTheme === 'dark');
         };
         loadTheme().then();
@@ -23,8 +20,7 @@ export const ThemeProvider = ({children}: { children: ReactNode }) => {
     const toggleTheme = async () => {
         setIsDarkMode(!isDarkMode);
         currentTheme = isDarkMode ? darkTheme : lightTheme;
-        await AsyncStorage.setItem('isDark', isDarkMode ? 'dark' : 'light');
-        await AsyncStorage.setItem('theme', JSON.stringify(currentTheme));
+        await AsyncStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
     };
 
     return (
