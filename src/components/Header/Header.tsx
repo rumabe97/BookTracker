@@ -5,15 +5,16 @@ import {useTheme} from "../../context/DarkMode/DarkModeProvider.tsx";
 import Button from "../Button/Button.tsx";
 import {lightTheme} from "../../styles/Themes.ts";
 
-const Header = () => {
+const Header = ({drawer = () => {} }) => {
     const {currentTheme, toggleTheme} = useTheme();
     const headerStyles = HeaderStyles(currentTheme);
+
 
     return (
         <View style={headerStyles.header}>
             <Button
                 title="☰"
-                onPress={() => console.log('Menu pressed\'')}
+                onPress={drawer}
                 textStyle={headerStyles.menuIcon}
             />
             <Button
