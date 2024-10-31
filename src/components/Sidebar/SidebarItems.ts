@@ -1,13 +1,15 @@
+import {faBookOpen, faCirclePlus, faClock, faHouse, faList, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+
 export interface NavItem {
-    icon: string;
+    icon: IconDefinition;
     label: string;
     screen: string;
 }
 
 export const navItems: NavItem[] = [
-    {icon: '⌂', label: 'Home', screen: 'HomeScreen'},
-    {icon: '+', label: 'Add Book', screen: 'AddBook'},
-    {icon: '🕮', label: 'Read', screen: 'Read'},
-    {icon: 'time-outline', label: 'Pending', screen: 'Pending'},
-    {icon: 'list-outline', label: 'Wishlist', screen: 'Wishlist'},
+    {icon: faHouse, label: 'Home', screen: 'HomeScreen'},
+    {icon: faCirclePlus, label: 'Add Book', screen: 'AddBook'},
+    {icon: faBookOpen, label: 'Read', screen: 'Read'},
+    {icon: faClock, label: 'Pending', screen: 'Pending'},
+    {icon: faList, label: 'Wishlist', screen: 'Wishlist'},
 ];

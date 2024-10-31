@@ -18,24 +18,5 @@ export const SidebarStyles = (theme: ThemeType) => StyleSheet.create({
     },
     navContainer: {
         flex: 1,
-    },
-    navItem: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 15,
-        borderBottomWidth: 1,
-        borderBottomColor: theme.background,
-    },
-    navLabel: {
-        marginLeft: 10,
-        fontSize: 16,
-        color: theme.textColor
-    },
-    activeNavItem: {
-        backgroundColor: theme.activeNavItem,
-    },
-    activeNavLabel: {
-        color: '#007AFF',
-        fontWeight: 'bold',
-    },
+    }
 });
