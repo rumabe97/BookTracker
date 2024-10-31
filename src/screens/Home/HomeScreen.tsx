@@ -1,24 +1,25 @@
 import React, {useState, useEffect} from 'react';
-import {View, FlatList, useColorScheme} from 'react-native';
+import {View, FlatList} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Picker} from '@react-native-picker/picker';
 import Button from "../../components/Button/Button.tsx";
 import Paginator from "../../components/Paginator/Paginator.tsx";
-import {HomeStyles} from "./HomeStyles.ts";
 import BookCard from "../../components/BookCard/BookCard.tsx";
 import {Book} from "../../core/entities/Book";
 import {getBooksNewest} from "../../core/services/Book";
 import {SearchBookNewestDto} from "../../core/repositories/Book";
+import {useTheme} from "../../context/DarkMode/DarkModeProvider.tsx";
+import {HomeStyles} from "./HomeStyles.ts";
 
 
 const categories = ["All", "Fiction", "Non-fiction", "Science Fiction", "Mystery", "Classic"];
 
 const HomeScreen = () => {
-    const colorScheme = useColorScheme();
-    const [isDarkMode, setIsDarkMode] = useState(colorScheme === 'dark');
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [bookType, setBookType] = useState("newest");
     const [currentBooks, setCurrentBooks] = useState<Book[]>();
+    const {currentTheme} = useTheme();
+    const homeStyles = HomeStyles(currentTheme);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -35,47 +36,48 @@ const HomeScreen = () => {
     }, []);
 
     return (
-        <SafeAreaView style={[HomeStyles.container, {backgroundColor: isDarkMode ? '#1a1a1a' : '#ffffff'}]}>
-            <View style={HomeStyles.controls}>
-                <View style={HomeStyles.toggleGroup}>
+        <SafeAreaView style={homeStyles.container}>
+            <View style={homeStyles.controls}>
+                <View style={homeStyles.toggleGroup}>
                     <Button
                         title="Newest"
                         onPress={() => setBookType('newest')}
                         buttonStyle={[
-                            HomeStyles.toggleButton,
-                            bookType === 'newest' && HomeStyles.activeToggle,
-                            {backgroundColor: isDarkMode ? '#3a3a3a' : '#e0e0e0'}
+                            homeStyles.toggleButton,
+                            bookType === 'newest' && homeStyles.activeToggle
                         ]}
-                        textStyle={[HomeStyles.toggleText, {color: isDarkMode ? '#ffffff' : '#333333'}]}
+                        textStyle={homeStyles.toggleText}
                     />
                     <Button
                         title="Relevant"
                         onPress={() => setBookType('relevant')}
                         buttonStyle={[
-                            HomeStyles.toggleButton,
-                            bookType === 'relevant' && HomeStyles.activeToggle,
-                            {backgroundColor: isDarkMode ? '#3a3a3a' : '#e0e0e0'}
+                            homeStyles.toggleButton,
+                            bookType === 'relevant' && homeStyles.activeToggle
                         ]}
-                        textStyle={[HomeStyles.toggleText, {color: isDarkMode ? '#ffffff' : '#333333'}]}
+                        textStyle={homeStyles.toggleText}
                     />
                 </View>
-                <Picker
-                    selectedValue={selectedCategory}
-                    onValueChange={(itemValue) => setSelectedCategory(itemValue)}
-                    style={[HomeStyles.picker, {color: isDarkMode ? '#ffffff' : '#333333'}]}
-                >
-                    {categories.map((category) => (
-                        <Picker.Item key={category} label={category} value={category}/>
-                    ))}
-                </Picker>
+                <View style={homeStyles.pickerContainer}>
+                    <Picker
+                        selectedValue={selectedCategory}
+                        onValueChange={(itemValue) => setSelectedCategory(itemValue)}
+                        dropdownIconColor={currentTheme.textColor}
+                        style={homeStyles.picker}
+                    >
+                        {categories.map((category) => (
+                            <Picker.Item key={category} label={category} value={category}/>
+                        ))}
+                    </Picker>
+                </View>
             </View>
 
             <FlatList
                 data={currentBooks}
-                renderItem={BookCard}
+                renderItem={({item}) => <BookCard {...item} />}
                 keyExtractor={(item) => item.idGoogle}
                 numColumns={2}
-                columnWrapperStyle={HomeStyles.bookRow}
+                columnWrapperStyle={homeStyles.bookRow}
             />
 
             <Paginator/>

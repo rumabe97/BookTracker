@@ -1,17 +1,20 @@
 import {StyleSheet} from "react-native";
+import {ThemeType} from "../../styles/Themes.ts";
 
-export const HeaderStyles = StyleSheet.create({
+export const HeaderStyles = (theme: ThemeType) => StyleSheet.create({
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 16,
-        padding: 16
+        padding: 16,
+        backgroundColor: theme.containerBackground
     },
     menuIcon: {
         fontSize: 24,
+        color: theme.textColor
     },
     darkModeToggle: {
         fontSize: 24,
+        color: theme.textColor
     },
 });

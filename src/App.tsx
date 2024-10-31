@@ -1,14 +1,16 @@
 import React from 'react';
 import AppLayout from "./layout/AppLayout.tsx";
 import {NavigationContainer} from "@react-navigation/native";
-
+import {ThemeProvider} from "./context/DarkMode/DarkModeProvider.tsx";
 
 function App(): React.JSX.Element {
 
     return (
-        <NavigationContainer>
-            <AppLayout/>
-        </NavigationContainer>
+        <ThemeProvider>
+            <NavigationContainer>
+                <AppLayout/>
+            </NavigationContainer>
+        </ThemeProvider>
     );
 }
 
