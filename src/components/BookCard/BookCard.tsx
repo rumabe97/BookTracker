@@ -10,7 +10,7 @@ const BookCard = (book: Book) => {
     const bookCardStyles = BookCardStyles(currentTheme);
     return (
         <View style={bookCardStyles.bookCard}>
-            <Image source={{uri: book.coverImage ?? "https://via.placeholder.com/130x200.png",}}
+            <Image source={{uri: book.coverImage ? book.coverImage : "https://via.placeholder.com/130x200.png",}}
                    style={bookCardStyles.bookImage}/>
             <View style={bookCardStyles.bookInfo}>
                 <Text style={bookCardStyles.bookTitle}
