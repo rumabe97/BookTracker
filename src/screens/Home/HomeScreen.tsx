@@ -11,6 +11,7 @@ import {SearchBookNewestDto} from "../../core/repositories/Book";
 import {useTheme} from "../../context/DarkMode/DarkModeProvider.tsx";
 import {HomeStyles} from "./HomeStyles.ts";
 import {GoogleResponse} from "../../core/entities/GoogleResponse";
+import {useLoader} from "../../context/Loader/LoaderProvider.tsx";
 
 
 const categories = ["All", "Fiction", "Non-fiction", "Science Fiction", "Mystery", "Classic"];
@@ -27,9 +28,11 @@ const HomeScreen = () => {
     const handlePagination = useCallback((newValue: number) => {
         setPage(newValue)
     }, [])
+    const {showLoader, hideLoader} = useLoader();
 
     useEffect(() => {
         const fetchData = async () => {
+            showLoader();
             const searchDto: SearchBookNewestDto = {
                 max_results: 10,
                 order: "newest",
@@ -40,7 +43,7 @@ const HomeScreen = () => {
             setTotalPages(Math.ceil(response.totalItems / 10));
             setCurrentBooks(response.data)
         };
-        fetchData().then();
+        fetchData().then(() => hideLoader());
     }, [page]);
 
     return (

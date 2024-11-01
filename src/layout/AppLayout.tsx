@@ -5,6 +5,8 @@ import {useNavigationState} from "@react-navigation/native";
 import {AppLayoutStyles} from "./AppLayoutStyles.ts";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
+import {LoaderProvider} from "../context/Loader/LoaderProvider.tsx";
+import Loader from "../components/Loader/Loader.tsx";
 
 
 const AppLayout: React.FC = () => {
@@ -19,7 +21,10 @@ const AppLayout: React.FC = () => {
             renderNavigationView={() => <Sidebar/>}>
             <View style={AppLayoutStyles.container}>
                 {routeName !== 'SplashScreen' && <Header drawer={() => drawer.current?.openDrawer()}/>}
-                <Router/>
+                <LoaderProvider>
+                    <Router/>
+                    <Loader/>
+                </LoaderProvider>
             </View>
         </DrawerLayoutAndroid>
     );
