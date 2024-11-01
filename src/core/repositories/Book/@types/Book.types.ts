@@ -47,3 +47,10 @@ export interface CreateBookDto {
     idGoogle: string;
     status: BookStatus;
 }
+
+export interface StatusCountDto {
+    completed: number;
+    pending: number;
+    wishlist: number;
+    reading: number;
+}

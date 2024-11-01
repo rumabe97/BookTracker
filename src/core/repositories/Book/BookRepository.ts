@@ -3,7 +3,7 @@ import {
     SearchBookDto,
     CreateBookDto,
     SearchBookNewestDto,
-    SearchBookGoogleDto
+    SearchBookGoogleDto, StatusCountDto
 } from "./@types/Book.types.ts";
 import {cleanParams} from "../utils/CleanParams.ts";
 import {BookStatus} from "../../entities/BookStatus";
@@ -167,6 +167,24 @@ const getBooksGoogle = async (searchBook: SearchBookGoogleDto): Promise<Response
     }
 };
 
+const getCountStatus = async (): Promise<StatusCountDto> => {
+    try {
+
+        const response = await authFetch(`${API_URL}/v0/book/get_status_count/`);
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch status count');
+        }
+
+        return await response.json();
+    } catch (error) {
+        if (error instanceof Error) {
+            throw new Error(error.message);
+        }
+
+        throw new Error('Failed to fetch status count');
+    }
+};
 
 export const BookRepository = {
     getBooks,
@@ -175,5 +193,6 @@ export const BookRepository = {
     deleteBook,
     updateBookStatus,
     getBooksNewest,
-    getBooksGoogle
+    getBooksGoogle,
+    getCountStatus
 };
