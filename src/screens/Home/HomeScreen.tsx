@@ -12,7 +12,7 @@ import {GoogleResponse} from "../../core/entities/GoogleResponse";
 import {useLoader} from "../../context/Loader/LoaderProvider.tsx";
 import {initialState, reducer} from "./Reduces.ts";
 import {BookCategories, categoryLabels} from "../../core/entities/BookCategory";
-import HomeHeader from "../../components/HomeHeader/HomeHeader.tsx";
+import HomeHeader from "../../components/HomeHeader";
 
 const HomeScreen = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
