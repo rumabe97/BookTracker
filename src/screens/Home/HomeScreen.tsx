@@ -2,7 +2,6 @@ import React, {useEffect, useCallback, useReducer} from 'react';
 import {View, FlatList} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Picker} from '@react-native-picker/picker';
-import Button from "../../components/Button";
 import Paginator from "../../components/Paginator";
 import BookCard from "../../components/BookCard";
 import {getBooksNewest} from "../../core/services/Book";
@@ -13,6 +12,7 @@ import {GoogleResponse} from "../../core/entities/GoogleResponse";
 import {useLoader} from "../../context/Loader/LoaderProvider.tsx";
 import {initialState, reducer} from "./Reduces.ts";
 import {BookCategories, categoryLabels} from "../../core/entities/BookCategory";
+import HomeHeader from "../../components/HomeHeader/HomeHeader.tsx";
 
 const HomeScreen = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -22,6 +22,10 @@ const HomeScreen = () => {
 
     const handlePagination = useCallback((newValue: number) => {
         dispatch({type: 'SET_PAGE', payload: newValue});
+    }, [])
+
+    const handleBookType = useCallback((newType: "newest" | "relevance") => {
+        dispatch({type: 'SET_BOOK_TYPE', payload: newType});
     }, [])
 
     useEffect(() => {
@@ -45,26 +49,27 @@ const HomeScreen = () => {
     return (
         <SafeAreaView style={homeStyles.container}>
             <View style={homeStyles.controls}>
-                <View style={homeStyles.toggleGroup}>
-                    <Button
-                        title="Newest"
-                        onPress={() => dispatch({type: 'SET_BOOK_TYPE', payload: 'newest'})}
-                        buttonStyle={[
-                            homeStyles.toggleButton,
-                            state.bookType === 'newest' && homeStyles.activeToggle
-                        ]}
-                        textStyle={homeStyles.toggleText}
-                    />
-                    <Button
-                        title="Relevant"
-                        onPress={() => dispatch({type: 'SET_BOOK_TYPE', payload: 'relevance'})}
-                        buttonStyle={[
-                            homeStyles.toggleButton,
-                            state.bookType === 'relevance' && homeStyles.activeToggle
-                        ]}
-                        textStyle={homeStyles.toggleText}
-                    />
-                </View>
+                {/*<View style={homeStyles.toggleGroup}>*/}
+                {/*    <Button*/}
+                {/*        title="Newest"*/}
+                {/*        onPress={() => dispatch({type: 'SET_BOOK_TYPE', payload: 'newest'})}*/}
+                {/*        buttonStyle={[*/}
+                {/*            homeStyles.toggleButton,*/}
+                {/*            state.bookType === 'newest' && homeStyles.activeToggle*/}
+                {/*        ]}*/}
+                {/*        textStyle={homeStyles.toggleText}*/}
+                {/*    />*/}
+                {/*    <Button*/}
+                {/*        title="Relevant"*/}
+                {/*        onPress={() => dispatch({type: 'SET_BOOK_TYPE', payload: 'relevance'})}*/}
+                {/*        buttonStyle={[*/}
+                {/*            homeStyles.toggleButton,*/}
+                {/*            state.bookType === 'relevance' && homeStyles.activeToggle*/}
+                {/*        ]}*/}
+                {/*        textStyle={homeStyles.toggleText}*/}
+                {/*    />*/}
+                {/*</View>*/}
+                <HomeHeader handleType={handleBookType}/>
                 <View style={homeStyles.pickerContainer}>
                     <Picker
                         selectedValue={state.selectedCategory}
