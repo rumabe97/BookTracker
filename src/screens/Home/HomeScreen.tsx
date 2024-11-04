@@ -49,26 +49,6 @@ const HomeScreen = () => {
     return (
         <SafeAreaView style={homeStyles.container}>
             <View style={homeStyles.controls}>
-                {/*<View style={homeStyles.toggleGroup}>*/}
-                {/*    <Button*/}
-                {/*        title="Newest"*/}
-                {/*        onPress={() => dispatch({type: 'SET_BOOK_TYPE', payload: 'newest'})}*/}
-                {/*        buttonStyle={[*/}
-                {/*            homeStyles.toggleButton,*/}
-                {/*            state.bookType === 'newest' && homeStyles.activeToggle*/}
-                {/*        ]}*/}
-                {/*        textStyle={homeStyles.toggleText}*/}
-                {/*    />*/}
-                {/*    <Button*/}
-                {/*        title="Relevant"*/}
-                {/*        onPress={() => dispatch({type: 'SET_BOOK_TYPE', payload: 'relevance'})}*/}
-                {/*        buttonStyle={[*/}
-                {/*            homeStyles.toggleButton,*/}
-                {/*            state.bookType === 'relevance' && homeStyles.activeToggle*/}
-                {/*        ]}*/}
-                {/*        textStyle={homeStyles.toggleText}*/}
-                {/*    />*/}
-                {/*</View>*/}
                 <HomeHeader handleType={handleBookType}/>
                 <View style={homeStyles.pickerContainer}>
                     <Picker
