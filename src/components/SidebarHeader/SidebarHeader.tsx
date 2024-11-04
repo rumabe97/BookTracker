@@ -19,7 +19,6 @@ const SidebarHeader = () => {
     useEffect(() => {
         const fetchData = async () => {
             const response: BookCount = await getStatusCount();
-            console.log(response)
             setBookCount(response);
         };
         fetchData().then();
