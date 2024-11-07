@@ -98,7 +98,7 @@ const deleteBook = async (id: string): Promise<boolean> => {
 
 const updateBookStatus = async (status: BookStatus, id: string): Promise<BookDto> => {
     try {
-        const response = await authFetch(`${API_URL}/v0/book/${id}/update_status`, {
+        const response = await authFetch(`${API_URL}/v0/book/${id}/update_status/`, {
             method: 'PATCH',
             body: JSON.stringify({status}),
         });
