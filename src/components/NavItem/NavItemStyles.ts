@@ -19,7 +19,7 @@ export const NavItemStyles = (theme: ThemeType) => StyleSheet.create({
         backgroundColor: theme.activeNavItem,
     },
     activeNavLabel: {
-        color: '#007AFF',
+        color: theme.primaryColor,
         fontWeight: 'bold',
     },
 });

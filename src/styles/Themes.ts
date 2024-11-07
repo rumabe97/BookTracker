@@ -5,6 +5,7 @@ export interface ThemeType {
     secondaryTextColor: string;
     cardBackground: string;
     activeNavItem: string;
+    primaryColor:string;
 }
 
 export const lightTheme: ThemeType = {
@@ -13,7 +14,8 @@ export const lightTheme: ThemeType = {
     textColor: '#333333',
     secondaryTextColor: '#666666',
     cardBackground: '#f0f0f0',
-    activeNavItem:'#E8E8E8'
+    activeNavItem:'#E8E8E8',
+    primaryColor: '#007AFF'
 }
 
 export const darkTheme: ThemeType = {
@@ -22,5 +24,6 @@ export const darkTheme: ThemeType = {
     textColor: '#ffffff',
     secondaryTextColor: '#cccccc',
     cardBackground: '#2a2a2a',
-    activeNavItem:'#333333'
+    activeNavItem:'#333333',
+    primaryColor:'#007AFF'
 }

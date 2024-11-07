@@ -24,7 +24,7 @@ export const HomeStyles = (theme: ThemeType) => StyleSheet.create({
         backgroundColor: theme.background
     },
     activeToggle: {
-        backgroundColor: '#007AFF',
+        backgroundColor: theme.primaryColor,
     },
     toggleText: {
         fontWeight: 'bold',

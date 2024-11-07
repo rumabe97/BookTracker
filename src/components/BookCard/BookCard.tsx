@@ -1,12 +1,15 @@
 import {Image, Text, View} from "react-native";
-import React from "react";
+import React, {useState} from "react";
 import {BookCardStyles} from "./BookCardStyles.ts";
 import Button from "../Button";
 import {Book} from "../../core/entities/Book";
 import {useTheme} from "../../context/DarkMode/DarkModeProvider.tsx";
+import BookDetail from "../BookDetail";
 
 const BookCard = (book: Book) => {
     const {currentTheme} = useTheme();
+    const [modalVisible, setModalVisible] = useState(false);
+
     const bookCardStyles = BookCardStyles(currentTheme);
     return (
         <View style={bookCardStyles.bookCard}>
@@ -22,14 +25,19 @@ const BookCard = (book: Book) => {
                 <View style={bookCardStyles.ratingContainer}>
                     <Text style={bookCardStyles.ratingStar}>★</Text>
                     <Text
-                        style={bookCardStyles.ratingText}>{book.averageRating}</Text>
+                        style={bookCardStyles.ratingText}>{book.averageRating ?? 'No rating'}</Text>
                 </View>
             </View>
             <Button
                 title="See More"
-                onPress={() => console.log(`See more for ${book.title}`)}
+                onPress={() => setModalVisible(true)}
                 buttonStyle={bookCardStyles.seeMoreButton}
                 textStyle={bookCardStyles.seeMoreText}
+            />
+            <BookDetail
+                book={book}
+                isVisible={modalVisible}
+                onClose={() => setModalVisible(false)}
             />
         </View>
     );

@@ -5,7 +5,6 @@ import {
     SearchBookNewestDto,
     SearchBookGoogleDto, StatusCountDto
 } from "./@types/Book.types.ts";
-import {cleanParams} from "../utils/CleanParams.ts";
 import {BookStatus} from "../../entities/BookStatus";
 import {authFetch} from "../utils/authFetch.ts";
 
@@ -41,11 +40,10 @@ const getBooks = async (searchBook: SearchBookDto): Promise<Response<BookDto>> =
 
 const createBook = async (book: CreateBookDto): Promise<BookDto> => {
     try {
-        const response = await authFetch(`${API_URL}/v0/book`, {
+        const response = await authFetch(`${API_URL}/v0/book/`, {
             method: 'POST',
-            body: JSON.stringify(cleanParams(book)),
+            body: JSON.stringify(book),
         });
-
         if (!response.ok) {
             throw new Error('Failed to create book');
         }

@@ -37,7 +37,7 @@ export const HomeHeaderStyles = (theme: ThemeType, width: number) => StyleSheet.
         bottom: 0,
         width: (width - 32) / 2,
         height: 4,
-        backgroundColor: '#007AFF',
+        backgroundColor: theme.primaryColor,
     },
     blur: {
         position: 'absolute',
