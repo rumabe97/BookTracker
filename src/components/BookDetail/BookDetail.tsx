@@ -19,6 +19,7 @@ import {BookStatus, getStatusOptions} from "../../core/entities/BookStatus/BookS
 import {createBook, updateBookStatus} from "../../core/services/Book";
 import {CreateBookDto} from "../../core/repositories/Book";
 import {useLoader} from "../../context/Loader/LoaderProvider.tsx";
+import Toast from "react-native-toast-message";
 
 
 const BookDetail = ({book, isVisible, onClose}: { book: Book; isVisible: boolean; onClose: () => void }) => {
@@ -40,8 +41,15 @@ const BookDetail = ({book, isVisible, onClose}: { book: Book; isVisible: boolean
             onClose();
             return;
         }
-        await updateBookStatus(status, book._id).finally(() => hideLoader());
-        onClose();
+        await updateBookStatus(status, book._id).finally(() => {
+            hideLoader();
+            onClose();
+        });
+        Toast.show({
+            type: 'success',
+            text1: 'Operación exitosa',
+            text2: 'La operación de guardado fue completada.'
+        });
     };
 
     const handleSelectStatus = useCallback((status: BookStatus) => {

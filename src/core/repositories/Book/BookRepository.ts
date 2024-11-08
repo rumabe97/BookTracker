@@ -7,6 +7,7 @@ import {
 } from "./@types/Book.types.ts";
 import {BookStatus} from "../../entities/BookStatus";
 import {authFetch} from "../utils/authFetch.ts";
+import Toast from "react-native-toast-message";
 
 const {API_URL = 'https://book-tracker-api-dev.vercel.app'} = process.env;
 
@@ -102,18 +103,19 @@ const updateBookStatus = async (status: BookStatus, id: string): Promise<BookDto
             method: 'PATCH',
             body: JSON.stringify({status}),
         });
-
         if (!response.ok) {
-            throw new Error('Failed to update book status');
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Ocurrió un error en la solicitud');
         }
-
         return await response.json();
-    } catch (error) {
-        if (error instanceof Error) {
-            throw new Error(error.message);
-        }
-
-        throw new Error('Failed to update book status');
+    } catch (error: any) {
+        Toast.show({
+            type: 'error',
+            text1: 'Error',
+            text2: error?.message,
+            position: 'top',
+        });
+        throw error;
     }
 };
 
