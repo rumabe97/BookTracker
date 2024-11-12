@@ -3,6 +3,7 @@ export interface BookCountProps {
     pending: number;
     wishlist: number;
     reading: number;
+    discarded: number;
 }
 
 export class BookCount {
@@ -10,11 +11,13 @@ export class BookCount {
     pending: number;
     wishlist: number;
     reading: number;
+    discarded: number;
 
     constructor(bookCountProps: BookCountProps) {
         this.completed = bookCountProps.completed;
         this.pending = bookCountProps.pending;
         this.reading = bookCountProps.reading;
         this.wishlist = bookCountProps.wishlist;
+        this.discarded = bookCountProps.discarded;
     }
 }

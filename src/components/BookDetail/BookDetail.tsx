@@ -144,7 +144,7 @@ const BookDetail = ({book, isVisible, onClose}: { book: Book; isVisible: boolean
                                         <Text style={bookDetailStyles.infoText}>ISBN-13: {book.isbn13}</Text>
                                     </View>
                                     {book.createdAt && (
-                                        <View>book.createdAt
+                                        <View>
                                             <Text style={bookDetailStyles.metadataTitle}>Tracking</Text>
                                             <View style={bookDetailStyles.metadataColumn}>
                                                 <View style={bookDetailStyles.infoRow}>

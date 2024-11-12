@@ -11,7 +11,8 @@ const SidebarHeader = () => {
         completed: 0,
         reading: 0,
         pending: 0,
-        wishlist: 0
+        wishlist: 0,
+        discarded: 0
     }));
 
     const sidebarHeaderStyles = SidebarHeaderStyles(currentTheme);
@@ -31,8 +32,8 @@ const SidebarHeader = () => {
                     <Text style={sidebarHeaderStyles.statValue}>{bookCount.completed ?? 0}</Text>
                 </View>
                 <View style={sidebarHeaderStyles.statItem}>
-                    <Text style={sidebarHeaderStyles.statLabel}>Pending</Text>
-                    <Text style={sidebarHeaderStyles.statValue}>{bookCount.pending ?? 0}</Text>
+                    <Text style={sidebarHeaderStyles.statLabel}>Discarded</Text>
+                    <Text style={sidebarHeaderStyles.statValue}>{bookCount.discarded ?? 0}</Text>
                 </View>
                 <View style={sidebarHeaderStyles.statItem}>
                     <Text style={sidebarHeaderStyles.statLabel}>Wishlist</Text>
