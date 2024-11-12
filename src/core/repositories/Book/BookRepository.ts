@@ -147,10 +147,9 @@ const getBooksGoogle = async (searchBook: SearchBookGoogleDto): Promise<Response
     try {
         const params = new URLSearchParams();
         if (searchBook.title) params.append('title', searchBook.title);
-        if (searchBook.author) params.append('subject', searchBook.author);
+        if (searchBook.author) params.append('author', searchBook.author);
         if (searchBook.max_results) params.append('max_results', searchBook.max_results.toString());
         if (searchBook.page) params.append('page', searchBook.page.toString());
-
         const response = await authFetch(`${API_URL}/v0/book/search_google_api?${params.toString()}`);
 
         if (!response.ok) {

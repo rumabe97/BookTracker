@@ -177,7 +177,8 @@ const BookDetail = ({book, isVisible, onClose}: { book: Book; isVisible: boolean
                                 <Button
                                     title={`Add to ${!status ? 'Wishlist' : status}`}
                                     onPress={handleAddToWishlist}
-                                    buttonStyle={bookDetailStyles.wishlistButton}
+                                    disabled={status === book.status}
+                                    buttonStyle={[bookDetailStyles.wishlistButton, status === book.status && bookDetailStyles.wishlistButtonDisabled]}
                                     textStyle={bookDetailStyles.wishlistButtonText}
                                 />
                                 <Button

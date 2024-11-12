@@ -1,0 +1,14 @@
+import {StyleSheet} from "react-native";
+import {ThemeType} from "../../styles/Themes.ts";
+
+export const SearchBookStyles = (theme: ThemeType) => StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 16,
+        paddingTop: 0,
+        backgroundColor: theme.containerBackground
+    },
+    bookRow: {
+        justifyContent: 'space-between',
+    }
+});
