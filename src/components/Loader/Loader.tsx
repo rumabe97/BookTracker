@@ -1,26 +1,18 @@
 import React from 'react';
-import {View, ActivityIndicator, StyleSheet, Modal} from 'react-native';
+import {View, ActivityIndicator, Modal} from 'react-native';
 import {useLoader} from "../../context/Loader/LoaderProvider.tsx";
+import {LoaderStyles} from "./LoaderStyles.ts";
 
 const Loader = () => {
     const {isLoading} = useLoader();
 
     return (
         <Modal visible={isLoading} transparent>
-            <View style={styles.overlay}>
+            <View style={LoaderStyles.overlay}>
                 <ActivityIndicator size="large" color="#007AFF"/>
             </View>
         </Modal>
     );
 };
-
-const styles = StyleSheet.create({
-    overlay: {
-        flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-});
 
 export default Loader;

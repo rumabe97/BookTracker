@@ -38,8 +38,8 @@ export const BookCardStyles = (theme: ThemeType) => StyleSheet.create({
         color: '#FFD700'
     },
     ratingText: {
-        fontSize: 12,
-        color: theme.textColor
+        fontSize: 10,
+        color: theme.secondaryTextColor
     },
     seeMoreButton: {
         padding: 8,

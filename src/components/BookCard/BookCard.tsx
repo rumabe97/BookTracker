@@ -20,7 +20,11 @@ const BookCard = (book: Book) => {
                       numberOfLines={1}>{book.title}</Text>
                 <Text style={bookCardStyles.bookAuthor}>{book.author}</Text>
                 <Text style={bookCardStyles.publishedDate}>
-                    Published: {new Date(book.publishedDate).toLocaleDateString()}
+                    Published: {new Date(book.publishedDate).toLocaleDateString('es-ES', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                })}
                 </Text>
                 <View style={bookCardStyles.ratingContainer}>
                     <Text style={bookCardStyles.ratingStar}>★</Text>

@@ -6,7 +6,7 @@ import {AppLayoutStyles} from "./AppLayoutStyles.ts";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import {LoaderProvider} from "../context/Loader/LoaderProvider.tsx";
-import Loader from "../components/Loader/Loader.tsx";
+import Loader from "../components/Loader";
 import Toast, {BaseToast, ErrorToast, ToastConfig} from "react-native-toast-message";
 
 

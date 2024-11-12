@@ -133,7 +133,11 @@ const BookDetail = ({book, isVisible, onClose}: { book: Book; isVisible: boolean
                                         <View style={bookDetailStyles.infoRow}>
                                             <FontAwesomeIcon icon={faCalendar} color={currentTheme.textColor}/>
                                             <Text style={bookDetailStyles.infoText}>
-                                                {new Date(book.publishedDate).toLocaleDateString()}
+                                                {new Date(book.publishedDate).toLocaleDateString('es-ES', {
+                                                    day: '2-digit',
+                                                    month: '2-digit',
+                                                    year: 'numeric'
+                                                })}
                                             </Text>
                                         </View>
                                         <Text style={bookDetailStyles.infoText}>ISBN-10: {book.isbn10}</Text>
@@ -146,13 +150,21 @@ const BookDetail = ({book, isVisible, onClose}: { book: Book; isVisible: boolean
                                                 <View style={bookDetailStyles.infoRow}>
                                                     <FontAwesomeIcon icon={faClock} color={currentTheme.textColor}/>
                                                     <Text style={bookDetailStyles.infoText}>
-                                                        Added: {new Date(book.createdAt).toLocaleDateString()}
+                                                        Added: {new Date(book.createdAt).toLocaleDateString('es-ES', {
+                                                        day: '2-digit',
+                                                        month: '2-digit',
+                                                        year: 'numeric'
+                                                    })}
                                                     </Text>
                                                 </View>
                                                 <View style={bookDetailStyles.infoRow}>
                                                     <FontAwesomeIcon icon={faClock} color={currentTheme.textColor}/>
                                                     <Text style={bookDetailStyles.infoText}>
-                                                        Updated: {new Date(book.updatedAt).toLocaleDateString()}
+                                                        Updated: {new Date(book.updatedAt).toLocaleDateString('es-ES', {
+                                                        day: '2-digit',
+                                                        month: '2-digit',
+                                                        year: 'numeric'
+                                                    })}
                                                     </Text>
                                                 </View>
                                             </View>
