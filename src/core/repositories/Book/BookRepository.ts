@@ -26,16 +26,18 @@ const getBooks = async (searchBook: SearchBookDto): Promise<Response<BookDto>> =
         const response = await authFetch(`${API_URL}/v0/book?${params.toString()}`);
 
         if (!response.ok) {
-            throw new Error('Failed to fetch books');
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Ocurrió un error en la solicitud');
         }
-
         return await response.json();
-    } catch (error) {
-        if (error instanceof Error) {
-            throw new Error(error.message);
-        }
-
-        throw new Error('Failed to fetch books');
+    } catch (error: any) {
+        Toast.show({
+            type: 'error',
+            text1: 'Error',
+            text2: error?.message,
+            position: 'top',
+        });
+        throw error;
     }
 };
 
@@ -46,16 +48,18 @@ const createBook = async (book: CreateBookDto): Promise<BookDto> => {
             body: JSON.stringify(book),
         });
         if (!response.ok) {
-            throw new Error('Failed to create book');
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Ocurrió un error en la solicitud');
         }
-
         return await response.json();
-    } catch (error) {
-        if (error instanceof Error) {
-            throw new Error(error.message);
-        }
-
-        throw new Error('Failed to create book');
+    } catch (error: any) {
+        Toast.show({
+            type: 'error',
+            text1: 'Error',
+            text2: error?.message,
+            position: 'top',
+        });
+        throw error;
     }
 };
 
@@ -64,16 +68,18 @@ const getBook = async (id: string): Promise<BookDto> => {
         const response = await authFetch(`${API_URL}/v0/book/${id}`);
 
         if (!response.ok) {
-            throw new Error('Failed to fetch book');
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Ocurrió un error en la solicitud');
         }
-
         return await response.json();
-    } catch (error) {
-        if (error instanceof Error) {
-            throw new Error(error.message);
-        }
-
-        throw new Error('Failed to fetch book');
+    } catch (error: any) {
+        Toast.show({
+            type: 'error',
+            text1: 'Error',
+            text2: error?.message,
+            position: 'top',
+        });
+        throw error;
     }
 };
 
@@ -84,16 +90,18 @@ const deleteBook = async (id: string): Promise<boolean> => {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to delete book');
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Ocurrió un error en la solicitud');
         }
-
         return await response.json();
-    } catch (error) {
-        if (error instanceof Error) {
-            throw new Error(error.message);
-        }
-
-        throw new Error('Failed to delete book');
+    } catch (error: any) {
+        Toast.show({
+            type: 'error',
+            text1: 'Error',
+            text2: error?.message,
+            position: 'top',
+        });
+        throw error;
     }
 };
 
@@ -130,16 +138,18 @@ const getBooksNewest = async (searchBook: SearchBookNewestDto): Promise<Response
         const response = await authFetch(`${API_URL}/v0/book/get_newest_relevance?${params.toString()}`);
 
         if (!response.ok) {
-            throw new Error('Failed to fetch books');
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Ocurrió un error en la solicitud');
         }
-
         return await response.json();
-    } catch (error) {
-        if (error instanceof Error) {
-            throw new Error(error.message);
-        }
-
-        throw new Error('Failed to fetch books');
+    } catch (error: any) {
+        Toast.show({
+            type: 'error',
+            text1: 'Error',
+            text2: error?.message,
+            position: 'top',
+        });
+        throw error;
     }
 };
 
@@ -153,16 +163,18 @@ const getBooksGoogle = async (searchBook: SearchBookGoogleDto): Promise<Response
         const response = await authFetch(`${API_URL}/v0/book/search_google_api?${params.toString()}`);
 
         if (!response.ok) {
-            throw new Error('Failed to fetch books');
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Ocurrió un error en la solicitud');
         }
-
         return await response.json();
-    } catch (error) {
-        if (error instanceof Error) {
-            throw new Error(error.message);
-        }
-
-        throw new Error('Failed to fetch books');
+    } catch (error: any) {
+        Toast.show({
+            type: 'error',
+            text1: 'Error',
+            text2: error?.message,
+            position: 'top',
+        });
+        throw error;
     }
 };
 
@@ -172,16 +184,18 @@ const getCountStatus = async (): Promise<StatusCountDto> => {
         const response = await authFetch(`${API_URL}/v0/book/get_status_count/`);
 
         if (!response.ok) {
-            throw new Error('Failed to fetch status count');
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Ocurrió un error en la solicitud');
         }
-
         return await response.json();
-    } catch (error) {
-        if (error instanceof Error) {
-            throw new Error(error.message);
-        }
-
-        throw new Error('Failed to fetch status count');
+    } catch (error: any) {
+        Toast.show({
+            type: 'error',
+            text1: 'Error',
+            text2: error?.message,
+            position: 'top',
+        });
+        throw error;
     }
 };
 

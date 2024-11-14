@@ -16,6 +16,7 @@ export const BookCardStyles = (theme: ThemeType) => StyleSheet.create({
     },
     bookInfo: {
         padding: 8,
+        flexGrow:1
     },
     bookTitle: {
         fontSize: 14,
