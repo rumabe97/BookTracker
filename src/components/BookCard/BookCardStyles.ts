@@ -73,7 +73,7 @@ export const BookCardStyles = (theme: ThemeType) => StyleSheet.create({
         alignSelf: 'flex-start',
     },
     statusText: {
-        color: 'white',
+        color: theme.textColor,
         fontSize: 12,
         fontWeight: 'bold',
     },
