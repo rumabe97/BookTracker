@@ -16,7 +16,7 @@ export const BookCardStyles = (theme: ThemeType) => StyleSheet.create({
     },
     bookInfo: {
         padding: 8,
-        flexGrow:1
+        flexGrow: 1
     },
     bookTitle: {
         fontSize: 14,
@@ -58,5 +58,23 @@ export const BookCardStyles = (theme: ThemeType) => StyleSheet.create({
         fontSize: 10,
         marginTop: 4,
         color: theme.secondaryTextColor
+    },
+    statusContainer: {
+        flex: 1,
+        position: 'absolute',
+        top: 10,
+        left: 10,
+        zIndex: 9999
+    },
+    statusBadge: {
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        borderRadius: 12,
+        alignSelf: 'flex-start',
+    },
+    statusText: {
+        color: 'white',
+        fontSize: 12,
+        fontWeight: 'bold',
     },
 });

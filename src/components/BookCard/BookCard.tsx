@@ -5,6 +5,7 @@ import Button from "../Button";
 import {Book} from "../../core/entities/Book";
 import {useTheme} from "../../context/DarkMode/DarkModeProvider.tsx";
 import BookDetail from "../BookDetail";
+import {statusColors} from "../BookDetail/BookDetailStyles.ts";
 
 const BookCard = (book: Book) => {
     const {currentTheme} = useTheme();
@@ -13,6 +14,14 @@ const BookCard = (book: Book) => {
     const bookCardStyles = BookCardStyles(currentTheme);
     return (
         <View style={bookCardStyles.bookCard}>
+            {(book.status && <View style={bookCardStyles.statusContainer}>
+                    <View style={[bookCardStyles.statusBadge, {backgroundColor: statusColors[book.status]}]}>
+                        <Text style={bookCardStyles.statusText}>
+                            {book.status ? book.status.charAt(0).toUpperCase() + book.status.slice(1) : 'No Status'}
+                        </Text>
+                    </View>
+                </View>
+            )}
             <Image source={{uri: book.coverImage ? book.coverImage : "https://via.placeholder.com/130x200.png",}}
                    style={bookCardStyles.bookImage}/>
             <View style={bookCardStyles.bookInfo}>
