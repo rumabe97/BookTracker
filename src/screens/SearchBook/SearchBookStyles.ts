@@ -10,5 +10,8 @@ export const SearchBookStyles = (theme: ThemeType) => StyleSheet.create({
     },
     bookRow: {
         justifyContent: 'space-between',
+    },
+    flatContainer: {
+        flex:1,
     }
 });

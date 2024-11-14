@@ -5,12 +5,13 @@ import {SearchBookGoogleDto} from "../../core/repositories/Book";
 import {GoogleResponse} from "../../core/entities/GoogleResponse";
 import {getBooksGoogle} from "../../core/services/Book";
 import {SafeAreaView} from "react-native-safe-area-context";
-import {FlatList} from "react-native";
+import {FlatList, View} from "react-native";
 import BookCard from "../../components/BookCard";
 import Paginator from "../../components/Paginator";
 import {SearchBookStyles} from "./SearchBookStyles.ts";
 import {initialState, reducer} from "./Reduces.ts";
 import SearchInputs from "../../components/SearchInputs";
+import EmptyList from "../../components/EmptyList";
 
 const SearchBook = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -47,14 +48,18 @@ const SearchBook = () => {
     return (
         <SafeAreaView style={searchBookStyles.container}>
             <SearchInputs handleTitleAuthor={handleTitleAuthor}/>
-            <FlatList
-                data={state.currentBooks}
-                renderItem={({item}) => <BookCard {...item} />}
-                keyExtractor={(item) => item.idGoogle}
-                numColumns={2}
-                columnWrapperStyle={searchBookStyles.bookRow}
-            />
-
+            <View style={searchBookStyles.flatContainer}>
+                <FlatList
+                    data={state.currentBooks}
+                    renderItem={({item}) => <BookCard {...item} />}
+                    ListEmptyComponent={<EmptyList title={"No books to display"}
+                                                   description={"Enter a title or author to find books. If nothing appears, try refining your search."}/>}
+                    keyExtractor={(item) => item.idGoogle}
+                    numColumns={2}
+                    columnWrapperStyle={searchBookStyles.bookRow}
+                    contentContainerStyle={{flexGrow: 1}}
+                />
+            </View>
             <Paginator handlePagination={handlePagination} pages={state.totalPages}/>
 
         </SafeAreaView>
