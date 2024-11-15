@@ -115,7 +115,6 @@ export const BookDetailStyles = (theme: ThemeType) => StyleSheet.create({
         borderWidth: 1,
         borderColor: theme.background,
         borderRadius: 8,
-        padding: 8,
         marginBottom: 15,
     },
     descriptionText: {

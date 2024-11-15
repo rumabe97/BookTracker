@@ -29,7 +29,6 @@ const BookDetail = ({book, isVisible, onClose}: { book: Book; isVisible: boolean
     const {currentTheme} = useTheme();
     const bookDetailStyles = BookDetailStyles(currentTheme);
     const {showLoader, hideLoader} = useLoader();
-
     const handleAddToWishlist = async () => {
         showLoader();
         if (!book._id) {
