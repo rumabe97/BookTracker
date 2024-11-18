@@ -1,54 +1,62 @@
 import React, {useCallback, useEffect, useReducer} from "react";
 import {useTheme} from "../../context/DarkMode/DarkModeProvider.tsx";
 import {useLoader} from "../../context/Loader/LoaderProvider.tsx";
-import {SearchBookGoogleDto} from "../../core/repositories/Book";
-import {GoogleResponse} from "../../core/entities/GoogleResponse";
-import {getBooksGoogle} from "../../core/services/Book";
+import {SearchBookDto} from "../../core/repositories/Book";
+import {getBooks} from "../../core/services/Book";
 import {SafeAreaView} from "react-native-safe-area-context";
+import SearchInputs from "../../components/SearchInputs";
 import {FlatList, View} from "react-native";
 import BookCard from "../../components/BookCard";
-import Paginator from "../../components/Paginator";
-import {SearchBookStyles} from "./SearchBookStyles.ts";
-import {initialState, reducer} from "./Reduces.ts";
-import SearchInputs from "../../components/SearchInputs";
 import EmptyList from "../../components/EmptyList";
+import Paginator from "../../components/Paginator";
+import {Book} from "../../core/entities/Book";
+import {initialState, reducer} from "./Reduces.ts";
+import {MyBooksStyles} from "./MyBooksStyles.ts";
+import {RootStackParamList} from "../../core/routing/StackParamList.ts";
+import {RouteProp, useRoute} from "@react-navigation/native";
 
-const SearchBook = () => {
+type SearchBookRouteProp = RouteProp<RootStackParamList, 'CompletedBooks'>;
+
+const MyBooks = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const {currentTheme} = useTheme();
-    const searchBookStyles = SearchBookStyles(currentTheme);
+    const myBooksStyles = MyBooksStyles(currentTheme);
     const {showLoader, hideLoader} = useLoader();
+
+    const route = useRoute<SearchBookRouteProp>();
+    const {status} = route.params
 
     const handlePagination = useCallback((newValue: number) => {
         dispatch({type: 'SET_PAGE', payload: newValue});
     }, [])
 
-    const handleTitleAuthor = useCallback((newValue: string[]) => {
-        dispatch({type: 'SET_TITLE_AUTHOR', payload: newValue});
+    const handleSearch = useCallback((newValue: string[]) => {
+        dispatch({type: 'SET_SEARCH', payload: newValue[0]});
     }, [])
 
     useEffect(() => {
         const fetchData = async () => {
             showLoader();
-            const searchDto: SearchBookGoogleDto = {
-                max_results: 10,
-                title: state.title,
-                author: state.author,
+            const searchDto: SearchBookDto = {
+                direction: 'desc',
+                quantity: 10,
+                search: state.search,
+                status,
                 page: state.page,
             }
-            const response: GoogleResponse = await getBooksGoogle(searchDto);
+            const {data, count}: { data: Book[], count: number } = await getBooks(searchDto);
             dispatch({
                 type: 'SET_BOOKS',
-                payload: {books: response.data, totalPages: Math.ceil(response.totalItems / 10)},
+                payload: {books: data, totalPages: Math.ceil(count / 10)},
             });
         };
         fetchData().then(() => hideLoader());
-    }, [state.page, state.title, state.author]);
+    }, [state.page, state.search]);
 
     return (
-        <SafeAreaView style={searchBookStyles.container}>
-            <SearchInputs handleTitleAuthor={handleTitleAuthor} options={['Title', 'Author']}/>
-            <View style={searchBookStyles.flatContainer}>
+        <SafeAreaView style={myBooksStyles.container}>
+            <SearchInputs handleTitleAuthor={handleSearch} options={['Search']}/>
+            <View style={myBooksStyles.flatContainer}>
                 <FlatList
                     data={state.currentBooks}
                     renderItem={({item}) => <BookCard {...item} />}
@@ -56,7 +64,7 @@ const SearchBook = () => {
                                                    description={"Enter a title or author to find books. If nothing appears, try refining your search."}/>}
                     keyExtractor={(item) => item.idGoogle}
                     numColumns={2}
-                    columnWrapperStyle={searchBookStyles.bookRow}
+                    columnWrapperStyle={myBooksStyles.bookRow}
                     contentContainerStyle={{flexGrow: 1}}
                 />
             </View>
@@ -66,4 +74,4 @@ const SearchBook = () => {
     );
 }
 
-export default SearchBook;
+export default MyBooks;

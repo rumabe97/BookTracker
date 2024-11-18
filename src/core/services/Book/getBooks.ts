@@ -1,10 +1,10 @@
 import {Book} from "../../entities/Book";
 import {BookRepository, SearchBookDto} from "../../repositories/Book";
 
-export async function getBooks(searchBook: SearchBookDto): Promise<Book[]> {
+export async function getBooks(searchBook: SearchBookDto): Promise<{ data: Book[], count: number }> {
     const books = await BookRepository.getBooks(searchBook);
 
-    return books.results.map(
+    const data = books.results.map(
         ({id, created_at, updated_at, ...rest}) => {
             return new Book({
                 _id: id,
@@ -14,4 +14,6 @@ export async function getBooks(searchBook: SearchBookDto): Promise<Book[]> {
             });
         }
     );
+    const totalItems = books.count;
+    return {data, count: totalItems}
 }

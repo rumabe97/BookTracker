@@ -9,7 +9,7 @@ export interface NavItem {
 export const navItems: NavItem[] = [
     {icon: faHouse, label: 'Home', screen: 'HomeScreen'},
     {icon: faCirclePlus, label: 'Search Books', screen: 'SearchBook'},
-    {icon: faBookOpen, label: 'Read', screen: 'Read'},
+    {icon: faBookOpen, label: 'My Books', screen: 'CompletedBooks'},
     {icon: faClock, label: 'Pending', screen: 'Pending'},
     {icon: faList, label: 'Wishlist', screen: 'Wishlist'},
 ];

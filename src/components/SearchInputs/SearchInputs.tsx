@@ -6,26 +6,37 @@ import {SearchInputsStyles} from "./SearchInputsStyles.ts";
 import Button from "../Button";
 import SearchInput from "../Searchinput";
 
-const SearchInputs = ({handleTitleAuthor}: { handleTitleAuthor: (newValue: string[]) => void }) => {
-    const [author, setAuthor] = useState('');
-    const [title, setTitle] = useState('');
+const SearchInputs = ({handleTitleAuthor, options}: {
+    handleTitleAuthor: (newValue: string[]) => void,
+    options: string[]
+}) => {
+    const [states, setStates] = useState(
+        options.reduce((acc: any, option) => {
+            acc[option] = "";
+            return acc;
+        }, {})
+    );
     const {currentTheme} = useTheme();
     const searchInputStyles = SearchInputsStyles(currentTheme);
 
-    const handleValue = useCallback((value: string, type?: string) => {
-        type === 'Author' ? setAuthor(value) : setTitle(value);
+    const handleValue = useCallback((value: string, type?: any) => {
+        setStates((prevStates: any) => ({
+            ...prevStates,
+            [type]: value,
+        }));
     }, [])
 
 
     return (
         <View style={searchInputStyles.container}>
-            <SearchInput title={'Author'} handleValue={handleValue}/>
-            <SearchInput title={'Title'} handleValue={handleValue}/>
+            {options.map((option, index) => (
+                <SearchInput key={index} title={option} handleValue={handleValue}/>
+            ))}
 
             <Button
                 title=''
                 onPress={() => {
-                    const newValue = [title, author];
+                    const newValue = Object.values(states) as string[];
                     handleTitleAuthor(newValue)
                 }}
                 buttonStyle={searchInputStyles.searchButton}
