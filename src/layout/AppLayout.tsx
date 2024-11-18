@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useCallback, useRef} from 'react';
 import {DrawerLayoutAndroid, View} from 'react-native';
 import Router from "../core/routing/AppRouting.tsx";
 import {useNavigationState} from "@react-navigation/native";
@@ -55,12 +55,16 @@ const AppLayout: React.FC = () => {
         ),
     };
 
+    const handleCloseDrawer = useCallback(() => {
+        if (drawer?.current) drawer.current.closeDrawer();
+    }, [])
+
     return (
         <DrawerLayoutAndroid
             ref={drawer}
             drawerWidth={300}
             drawerPosition="left"
-            renderNavigationView={() => <Sidebar/>}>
+            renderNavigationView={() => <Sidebar handleCloseDrawer={handleCloseDrawer}/>}>
             <View style={AppLayoutStyles.container}>
                 {routeName !== 'SplashScreen' && <Header drawer={() => drawer.current?.openDrawer()}/>}
                 <LoaderProvider>

@@ -7,7 +7,7 @@ import SidebarHeader from "../SidebarHeader";
 import {navItems} from "./SidebarItems.ts";
 import NavItemMenu from "../NavItem";
 
-const Sidebar = () => {
+const Sidebar = ({handleCloseDrawer}: { handleCloseDrawer: () => void }) => {
     const {currentTheme} = useTheme();
     const sidebarStyles = SidebarStyles(currentTheme);
 
@@ -17,7 +17,7 @@ const Sidebar = () => {
                 <SidebarHeader/>
                 <View style={sidebarStyles.navContainer}>
                     {navItems.map((item, index) => (
-                        <NavItemMenu icon={item.icon} label={item.label} screen={item.screen} key={index}/>
+                        <NavItemMenu item={item} handleCloseDrawer={handleCloseDrawer} key={index}/>
                     ))}
                 </View>
             </View>
