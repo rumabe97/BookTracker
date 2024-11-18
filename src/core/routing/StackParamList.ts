@@ -2,10 +2,10 @@ import {BookStatus} from "../entities/BookStatus";
 
 export type RootStackParamList = {
     SplashScreen: undefined;
-    HomeScreen: undefined;
+    Home: undefined;
     SearchBook: undefined;
     CompletedBooks: { status: BookStatus };
     PendingBooks: { status: BookStatus };
-    WishListBooks: { status: BookStatus };
+    WishlistBooks: { status: BookStatus };
     DiscardedBooks: { status: BookStatus };
 };

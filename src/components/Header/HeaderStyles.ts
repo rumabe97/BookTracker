@@ -17,4 +17,10 @@ export const HeaderStyles = (theme: ThemeType) => StyleSheet.create({
         fontSize: 24,
         color: theme.textColor
     },
+    title: {
+        color:theme.textColor,
+        fontWeight:"bold",
+        fontSize:20,
+        fontStyle:"italic"
+    }
 });

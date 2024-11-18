@@ -13,13 +13,13 @@ const Router = () => {
     return (
         <RootStack.Navigator initialRouteName="SplashScreen" screenOptions={{headerShown: false}}>
             <RootStack.Screen name="SplashScreen" component={SplashScreenLazy}/>
-            <RootStack.Screen name="HomeScreen" component={HomeScreenLazy}/>
+            <RootStack.Screen name="Home" component={HomeScreenLazy}/>
             <RootStack.Screen name="SearchBook" component={SearchScreenLazy}/>
             <RootStack.Screen name="CompletedBooks" component={MyBooks}
                               initialParams={{status: BookStatus.Completed}}/>
             <RootStack.Screen name="PendingBooks" component={MyBooks}
                               initialParams={{status: BookStatus.Pending}}/>
-            <RootStack.Screen name="WishListBooks" component={MyBooks}
+            <RootStack.Screen name="WishlistBooks" component={MyBooks}
                               initialParams={{status: BookStatus.Wishlist}}/>
             <RootStack.Screen name="DiscardedBooks" component={MyBooks}
                               initialParams={{status: BookStatus.Discarded}}/>

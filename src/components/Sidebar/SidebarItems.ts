@@ -15,10 +15,10 @@ export interface NavItem {
 }
 
 export const navItems: NavItem[] = [
-    {icon: faHouse, label: 'Home', screen: 'HomeScreen'},
+    {icon: faHouse, label: 'Home', screen: 'Home'},
     {icon: faCirclePlus, label: 'Search Books', screen: 'SearchBook'},
     {icon: faBookOpen, label: 'My Books', screen: 'CompletedBooks'},
     {icon: faClock, label: 'Pending', screen: 'PendingBooks'},
-    {icon: faList, label: 'Wishlist', screen: 'WishListBooks'},
+    {icon: faList, label: 'Wishlist', screen: 'WishlistBooks'},
     {icon: faXmark, label: 'Discarded', screen: 'DiscardedBooks'},
 ];
