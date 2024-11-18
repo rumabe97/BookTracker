@@ -5,4 +5,7 @@ export type RootStackParamList = {
     HomeScreen: undefined;
     SearchBook: undefined;
     CompletedBooks: { status: BookStatus };
+    PendingBooks: { status: BookStatus };
+    WishListBooks: { status: BookStatus };
+    DiscardedBooks: { status: BookStatus };
 };
