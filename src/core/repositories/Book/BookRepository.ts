@@ -85,7 +85,7 @@ const getBook = async (id: string): Promise<BookDto> => {
 
 const deleteBook = async (id: string): Promise<boolean> => {
     try {
-        const response = await authFetch(`${API_URL}/v0/book/${id}`, {
+        const response = await authFetch(`${API_URL}/v0/book/${id}/`, {
             method: 'DELETE'
         });
 

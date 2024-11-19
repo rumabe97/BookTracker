@@ -7,7 +7,6 @@ import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import {LoaderProvider} from "../context/Loader/LoaderProvider.tsx";
 import Loader from "../components/Loader";
-import CustomToast from "../components/CustomToast";
 
 
 const AppLayout: React.FC = () => {
@@ -30,7 +29,6 @@ const AppLayout: React.FC = () => {
                     <Router/>
                     <Loader/>
                 </LoaderProvider>
-                <CustomToast/>
             </View>
         </DrawerLayoutAndroid>
     );

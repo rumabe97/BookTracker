@@ -5,7 +5,6 @@ import {CustomToastStyles} from "./CustomToastStyles.ts";
 import Button from "../Button";
 import {useTheme} from "../../context/DarkMode/DarkModeProvider.tsx";
 
-
 const CustomToast = () => {
     const {currentTheme} = useTheme();
     const customToastStyles = CustomToastStyles(currentTheme);
@@ -40,7 +39,7 @@ const CustomToast = () => {
                 text2NumberOfLines={0}
             />
         ),
-        deleteConfirmation: ({text1, text2}) => (
+        deleteConfirmation: ({text1, text2, props}) => (
             <BaseToast
                 style={customToastStyles.toast}
                 contentContainerStyle={customToastStyles.contentContainer}
@@ -53,13 +52,13 @@ const CustomToast = () => {
                     <View style={customToastStyles.buttonContainer}>
                         <Button
                             title="Confirm"
-                            onPress={() => console.log('delete')}
+                            onPress={props.onConfirm}
                             buttonStyle={customToastStyles.confirmButton}
                             textStyle={customToastStyles.buttonText}
                         />
                         <Button
                             title="Cancel"
-                            onPress={() => Toast.hide()}
+                            onPress={props.onCancel}
                             buttonStyle={customToastStyles.cancelButton}
                             textStyle={customToastStyles.buttonText}
                         />

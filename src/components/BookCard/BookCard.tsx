@@ -7,7 +7,7 @@ import {useTheme} from "../../context/DarkMode/DarkModeProvider.tsx";
 import BookDetail from "../BookDetail";
 import {statusColors} from "../BookDetail/BookDetailStyles.ts";
 import {CreateBookDto} from "../../core/repositories/Book";
-import {createBook, updateBookStatus} from "../../core/services/Book";
+import {createBook, deleteBook, updateBookStatus} from "../../core/services/Book";
 import Toast from "react-native-toast-message";
 import {useLoader} from "../../context/Loader/LoaderProvider.tsx";
 import {BookStatus} from "../../core/entities/BookStatus";
@@ -50,6 +50,33 @@ const BookCard = (initialBook: Book) => {
         });
     };
 
+    const handleDeleteItem = async () => {
+        setModalVisible(false);
+        Toast.show({
+            type: 'deleteConfirmation',
+            position: 'top',
+            text1: 'Delete Record',
+            text2: 'Are you sure you want to delete this record?',
+            visibilityTime: 4000,
+            autoHide: false,
+            topOffset: 0,
+            bottomOffset: 0,
+            props: {
+                onConfirm: async () => {
+                    showLoader();
+                    await deleteBook(book._id).finally(() => {
+                        hideLoader();
+                        Toast.hide();
+                    });
+                },
+                onCancel: () => {
+                    Toast.hide();
+                    setModalVisible(true);
+                },
+            },
+        });
+    };
+
     return (
         <View style={bookCardStyles.bookCard}>
             {(book.status && <View style={bookCardStyles.statusContainer}>
@@ -89,6 +116,7 @@ const BookCard = (initialBook: Book) => {
                 book={book}
                 isVisible={modalVisible}
                 onClose={() => setModalVisible(false)}
+                onDelete={handleDeleteItem}
                 onUpdate={handleChangeStatus}
             />
         </View>

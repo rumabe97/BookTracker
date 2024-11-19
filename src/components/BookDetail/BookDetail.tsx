@@ -16,13 +16,13 @@ import {useTheme} from "../../context/DarkMode/DarkModeProvider.tsx";
 import {BookDetailStyles, statusColors} from "./BookDetailStyles.ts";
 import ModalList from "../ModalList";
 import {BookStatus, getStatusOptions} from "../../core/entities/BookStatus/BookStatus.ts";
-import Toast from "react-native-toast-message";
 
 
-const BookDetail = ({book, isVisible, onClose, onUpdate}: {
+const BookDetail = ({book, isVisible, onClose, onUpdate, onDelete}: {
     book: Book;
     isVisible: boolean;
     onClose: () => void;
+    onDelete: () => void;
     onUpdate: (status: BookStatus) => void
 }) => {
     const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
@@ -31,19 +31,6 @@ const BookDetail = ({book, isVisible, onClose, onUpdate}: {
     const {currentTheme} = useTheme();
     const bookDetailStyles = BookDetailStyles(currentTheme);
 
-
-    const handleDeleteItem = async () => {
-        Toast.show({
-            type: 'deleteConfirmation',
-            position: 'top',
-            text1: 'Delete Record',
-            text2: 'Are you sure you want to delete this record?',
-            visibilityTime: 4000,
-            autoHide: false,
-            topOffset: 0,
-            bottomOffset: 0,
-        });
-    };
     const handleSelectStatus = useCallback((status: BookStatus) => {
         setStatus(status);
     }, [])
@@ -181,7 +168,7 @@ const BookDetail = ({book, isVisible, onClose, onUpdate}: {
                                 />
                                 {book._id && (<Button
                                         title='Delete'
-                                        onPress={handleDeleteItem}
+                                        onPress={onDelete}
                                         buttonStyle={bookDetailStyles.deleteButton}
                                         textStyle={bookDetailStyles.deleteButtonText}
                                     />

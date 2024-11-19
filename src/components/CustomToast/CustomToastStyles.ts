@@ -8,13 +8,15 @@ export const CustomToastStyles = (theme: ThemeType) => StyleSheet.create({
         height: 150,
         flexDirection: 'column',
         padding: 10,
-        marginTop: 40
+        marginTop: 40,
+        zIndex:10000000000000
     },
     contentContainer: {
         flex: 1,
         flexDirection: 'column',
         paddingHorizontal: 15,
         paddingVertical: 10,
+        zIndex:10000000000000
     },
     text1: {
         fontSize: 18,
