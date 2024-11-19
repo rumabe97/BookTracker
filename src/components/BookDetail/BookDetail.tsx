@@ -16,43 +16,21 @@ import {useTheme} from "../../context/DarkMode/DarkModeProvider.tsx";
 import {BookDetailStyles, statusColors} from "./BookDetailStyles.ts";
 import ModalList from "../ModalList";
 import {BookStatus, getStatusOptions} from "../../core/entities/BookStatus/BookStatus.ts";
-import {createBook, updateBookStatus} from "../../core/services/Book";
-import {CreateBookDto} from "../../core/repositories/Book";
-import {useLoader} from "../../context/Loader/LoaderProvider.tsx";
 import Toast from "react-native-toast-message";
 
 
-const BookDetail = ({book, isVisible, onClose}: { book: Book; isVisible: boolean; onClose: () => void }) => {
+const BookDetail = ({book, isVisible, onClose, onUpdate}: {
+    book: Book;
+    isVisible: boolean;
+    onClose: () => void;
+    onUpdate: (status: BookStatus) => void
+}) => {
     const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
     const [status, setStatus] = useState(book.status);
     const [modalVisible, setModalVisible] = useState(false);
     const {currentTheme} = useTheme();
     const bookDetailStyles = BookDetailStyles(currentTheme);
-    const {showLoader, hideLoader} = useLoader();
-    const handleChangeStatus = async () => {
-        showLoader();
-        if (!book._id) {
-            const createBookDto: CreateBookDto = {
-                idGoogle: book.idGoogle,
-                status
-            }
-            await createBook(createBookDto).finally(() => {
-                hideLoader()
-                onClose();
-            });
-        }
-        if (book._id) {
-            await updateBookStatus(status, book._id).finally(() => {
-                hideLoader();
-                onClose();
-            });
-        }
-        Toast.show({
-            type: 'success',
-            text1: 'Operación exitosa',
-            text2: 'La operación de guardado fue completada.'
-        });
-    };
+
 
     const handleDeleteItem = async () => {
         Toast.show({
@@ -190,7 +168,7 @@ const BookDetail = ({book, isVisible, onClose}: { book: Book; isVisible: boolean
                             <View style={bookDetailStyles.footer}>
                                 <Button
                                     title={`Add to ${!status ? 'Wishlist' : status}`}
-                                    onPress={handleChangeStatus}
+                                    onPress={() => onUpdate(status)}
                                     disabled={status === book.status}
                                     buttonStyle={[bookDetailStyles.wishlistButton, status === book.status && bookDetailStyles.wishlistButtonDisabled]}
                                     textStyle={bookDetailStyles.wishlistButtonText}
