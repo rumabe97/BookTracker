@@ -142,7 +142,7 @@ export const BookDetailStyles = (theme: ThemeType) => StyleSheet.create({
     footer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop: 15,
+        marginTop: 17,
     },
     wishlistButton: {
         backgroundColor: theme.primaryColor,
@@ -158,7 +158,7 @@ export const BookDetailStyles = (theme: ThemeType) => StyleSheet.create({
         backgroundColor: '#9ca3af',
     },
     wishlistButtonText: {
-        color: 'white',
+        color: theme.textColor,
         marginLeft: 5,
         fontSize: 14,
         fontWeight: 'bold',
@@ -170,9 +170,23 @@ export const BookDetailStyles = (theme: ThemeType) => StyleSheet.create({
         borderWidth: 1,
         borderColor: theme.primaryColor,
         borderRadius: 8,
+        marginRight:10
     },
     closeButtonText: {
         color: theme.primaryColor,
+        fontSize: 14,
+        fontWeight: 'bold',
+    },
+    deleteButton: {
+        padding: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderWidth: 1,
+        borderColor: theme.deleteColor,
+        borderRadius: 8,
+    },
+    deleteButtonText: {
+        color: theme.deleteColor,
         fontSize: 14,
         fontWeight: 'bold',
     },

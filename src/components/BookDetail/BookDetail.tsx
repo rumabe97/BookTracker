@@ -29,21 +29,24 @@ const BookDetail = ({book, isVisible, onClose}: { book: Book; isVisible: boolean
     const {currentTheme} = useTheme();
     const bookDetailStyles = BookDetailStyles(currentTheme);
     const {showLoader, hideLoader} = useLoader();
-    const handleAddToWishlist = async () => {
+    const handleChangeStatus = async () => {
         showLoader();
         if (!book._id) {
             const createBookDto: CreateBookDto = {
                 idGoogle: book.idGoogle,
                 status
             }
-            await createBook(createBookDto).finally(() => hideLoader());
-            onClose();
-            return;
+            await createBook(createBookDto).finally(() => {
+                hideLoader()
+                onClose();
+            });
         }
-        await updateBookStatus(status, book._id).finally(() => {
-            hideLoader();
-            onClose();
-        });
+        if (book._id) {
+            await updateBookStatus(status, book._id).finally(() => {
+                hideLoader();
+                onClose();
+            });
+        }
         Toast.show({
             type: 'success',
             text1: 'Operación exitosa',
@@ -51,6 +54,18 @@ const BookDetail = ({book, isVisible, onClose}: { book: Book; isVisible: boolean
         });
     };
 
+    const handleDeleteItem = async () => {
+        Toast.show({
+            type: 'deleteConfirmation',
+            position: 'top',
+            text1: 'Delete Record',
+            text2: 'Are you sure you want to delete this record?',
+            visibilityTime: 4000,
+            autoHide: false,
+            topOffset: 0,
+            bottomOffset: 0,
+        });
+    };
     const handleSelectStatus = useCallback((status: BookStatus) => {
         setStatus(status);
     }, [])
@@ -175,7 +190,7 @@ const BookDetail = ({book, isVisible, onClose}: { book: Book; isVisible: boolean
                             <View style={bookDetailStyles.footer}>
                                 <Button
                                     title={`Add to ${!status ? 'Wishlist' : status}`}
-                                    onPress={handleAddToWishlist}
+                                    onPress={handleChangeStatus}
                                     disabled={status === book.status}
                                     buttonStyle={[bookDetailStyles.wishlistButton, status === book.status && bookDetailStyles.wishlistButtonDisabled]}
                                     textStyle={bookDetailStyles.wishlistButtonText}
@@ -186,6 +201,13 @@ const BookDetail = ({book, isVisible, onClose}: { book: Book; isVisible: boolean
                                     buttonStyle={bookDetailStyles.closeButton}
                                     textStyle={bookDetailStyles.closeButtonText}
                                 />
+                                {book._id && (<Button
+                                        title='Delete'
+                                        onPress={handleDeleteItem}
+                                        buttonStyle={bookDetailStyles.deleteButton}
+                                        textStyle={bookDetailStyles.deleteButtonText}
+                                    />
+                                )}
                             </View>
                         </View>
                     </TouchableWithoutFeedback>
