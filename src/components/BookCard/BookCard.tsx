@@ -45,8 +45,8 @@ const BookCard = (initialBook: Book) => {
 
         Toast.show({
             type: 'success',
-            text1: 'Operación exitosa',
-            text2: 'La operación de guardado fue completada.'
+            text1: 'Operation Successful',
+            text2: 'The save operation was completed.'
         });
     };
 
