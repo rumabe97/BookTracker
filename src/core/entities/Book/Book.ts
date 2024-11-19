@@ -38,8 +38,8 @@ export class Book {
     publishedDate: Date;
     isbn13: string;
     isbn10: string;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 
     constructor(book: BookProps) {
         this._id = book._id;

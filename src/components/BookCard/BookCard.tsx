@@ -68,6 +68,14 @@ const BookCard = (initialBook: Book) => {
                         hideLoader();
                         Toast.hide();
                     });
+                    const result: Book = {
+                        ...book,
+                        _id: '',
+                        status: BookStatus.NoStatus,
+                        createdAt: undefined,
+                        updatedAt: undefined
+                    }
+                    setBook(result)
                 },
                 onCancel: () => {
                     Toast.hide();
@@ -79,10 +87,10 @@ const BookCard = (initialBook: Book) => {
 
     return (
         <View style={bookCardStyles.bookCard}>
-            {(book.status && <View style={bookCardStyles.statusContainer}>
+            {(book.status && book.status !== BookStatus.NoStatus && <View style={bookCardStyles.statusContainer}>
                     <View style={[bookCardStyles.statusBadge, {backgroundColor: statusColors[book.status]}]}>
                         <Text style={bookCardStyles.statusText}>
-                            {book.status ? book.status.charAt(0).toUpperCase() + book.status.slice(1) : 'No Status'}
+                            {book.status.charAt(0).toUpperCase() + book.status.slice(1)}
                         </Text>
                     </View>
                 </View>

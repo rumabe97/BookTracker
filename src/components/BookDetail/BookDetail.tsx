@@ -122,7 +122,7 @@ const BookDetail = ({book, isVisible, onClose, onUpdate, onDelete}: {
                                         <Text style={bookDetailStyles.infoText}>ISBN-10: {book.isbn10}</Text>
                                         <Text style={bookDetailStyles.infoText}>ISBN-13: {book.isbn13}</Text>
                                     </View>
-                                    {book.createdAt && (
+                                    {book.createdAt && book.updatedAt && (
                                         <View>
                                             <Text style={bookDetailStyles.metadataTitle}>Tracking</Text>
                                             <View style={bookDetailStyles.metadataColumn}>

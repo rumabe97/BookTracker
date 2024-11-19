@@ -93,7 +93,7 @@ const deleteBook = async (id: string): Promise<boolean> => {
             const errorData = await response.json();
             throw new Error(errorData.message || 'Ocurrió un error en la solicitud');
         }
-        return await response.json();
+        return true;
     } catch (error: any) {
         Toast.show({
             type: 'error',
