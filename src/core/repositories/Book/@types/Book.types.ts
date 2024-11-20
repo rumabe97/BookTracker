@@ -53,4 +53,5 @@ export interface StatusCountDto {
     pending: number;
     wishlist: number;
     reading: number;
+    discarded: number;
 }
