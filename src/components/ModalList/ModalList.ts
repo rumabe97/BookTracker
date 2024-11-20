@@ -1,6 +1,7 @@
 import {StyleSheet} from "react-native";
+import {ThemeType} from "../../styles/Themes.ts";
 
-export const ModalListStyles = StyleSheet.create({
+export const ModalListStyles = (theme:ThemeType) => StyleSheet.create({
     modalOverlay: {
         flex: 1,
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -9,7 +10,7 @@ export const ModalListStyles = StyleSheet.create({
     },
     modalContent: {
         width: 300,
-        backgroundColor: '#fff',
+        backgroundColor: theme.background,
         borderRadius: 12,
         padding: 20,
     },
@@ -18,5 +19,6 @@ export const ModalListStyles = StyleSheet.create({
     },
     optionText: {
         fontSize: 16,
+        color:theme.textColor
     },
 });

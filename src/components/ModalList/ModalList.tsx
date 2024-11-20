@@ -2,6 +2,7 @@ import {FlatList, Modal, TouchableWithoutFeedback, View} from "react-native";
 import Button from "../Button";
 import React from "react";
 import {ModalListStyles} from "./ModalList.ts";
+import {useTheme} from "../../context/DarkMode/DarkModeProvider.tsx";
 
 const ModalList = ({options, isVisible, onClose, itemSelected}: {
     options: any[];
@@ -9,7 +10,8 @@ const ModalList = ({options, isVisible, onClose, itemSelected}: {
     onClose: () => void,
     itemSelected: (item: any) => void
 }) => {
-
+    const {currentTheme} = useTheme();
+    const modalListStyles = ModalListStyles(currentTheme);
     return (
         <Modal
             transparent={true}
@@ -18,9 +20,9 @@ const ModalList = ({options, isVisible, onClose, itemSelected}: {
             onRequestClose={onClose}
         >
             <TouchableWithoutFeedback onPress={onClose}>
-                <View style={ModalListStyles.modalOverlay}>
+                <View style={modalListStyles.modalOverlay}>
                     <TouchableWithoutFeedback>
-                        <View style={ModalListStyles.modalContent}>
+                        <View style={modalListStyles.modalContent}>
                             <FlatList
                                 data={options}
                                 keyExtractor={(item) => item?.value}
@@ -31,8 +33,8 @@ const ModalList = ({options, isVisible, onClose, itemSelected}: {
                                             itemSelected(item.value);
                                             onClose();
                                         }}
-                                        buttonStyle={ModalListStyles.option}
-                                        textStyle={ModalListStyles.optionText}
+                                        buttonStyle={modalListStyles.option}
+                                        textStyle={modalListStyles.optionText}
                                     />
                                 )}
                             />
