@@ -8,6 +8,7 @@ export async function createBook(createBook: CreateBookDto): Promise<Book> {
         _id: book.id,
         createdAt: book.created_at,
         updatedAt: book.updated_at,
-        ...book
+        ...book,
+        coverImage: book.coverImage.replace('http://', 'https://'),
     });
 }

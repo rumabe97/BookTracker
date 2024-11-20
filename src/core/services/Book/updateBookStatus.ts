@@ -9,6 +9,7 @@ export async function updateBookStatus(status: BookStatus, id: string): Promise<
         _id: book.id,
         createdAt: book.created_at,
         updatedAt: book.updated_at,
-        ...book
+        ...book,
+        coverImage: book.coverImage.replace('http://', 'https://'),
     });
 }
