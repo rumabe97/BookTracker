@@ -19,11 +19,10 @@ const BookCard = (initialBook: Book) => {
     const {showLoader, hideLoader} = useLoader();
 
     const bookCardStyles = BookCardStyles(currentTheme);
-
+    console.log(book)
     const handleChangeStatus = async (status: BookStatus) => {
         showLoader();
         let responseBook: Book;
-
         if (!book._id) {
             const createBookDto: CreateBookDto = {
                 idGoogle: book.idGoogle,
@@ -96,7 +95,12 @@ const BookCard = (initialBook: Book) => {
                 </View>
             )}
             <Image source={{uri: book.coverImage ? book.coverImage : "https://via.placeholder.com/130x200.png",}}
-                   style={bookCardStyles.bookImage}/>
+                   style={bookCardStyles.bookImage} onError={(error) => Toast.show({
+                type: 'error',
+                text1: book.coverImage,
+                text2: error.nativeEvent.error,
+                position: 'top',
+            })}/>
             <View style={bookCardStyles.bookInfo}>
                 <Text style={bookCardStyles.bookTitle}
                       numberOfLines={1}>{book.title}</Text>

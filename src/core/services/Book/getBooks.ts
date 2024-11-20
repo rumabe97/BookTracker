@@ -10,7 +10,8 @@ export async function getBooks(searchBook: SearchBookDto): Promise<{ data: Book[
                 _id: id,
                 createdAt: created_at,
                 updatedAt: updated_at,
-                ...rest
+                ...rest,
+                coverImage: rest.coverImage.replace('http://', 'https://'),
             });
         }
     );
