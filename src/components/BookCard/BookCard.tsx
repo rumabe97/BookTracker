@@ -19,7 +19,6 @@ const BookCard = (initialBook: Book) => {
     const {showLoader, hideLoader} = useLoader();
 
     const bookCardStyles = BookCardStyles(currentTheme);
-    console.log(book)
     const handleChangeStatus = async (status: BookStatus) => {
         showLoader();
         let responseBook: Book;

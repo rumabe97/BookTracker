@@ -50,13 +50,15 @@ export const BookDetailStyles = (theme: ThemeType) => StyleSheet.create({
     },
     infoContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        flexWrap:"wrap",
+        //justifyContent: 'space-between',
+        alignItems: 'flex-start',
         marginBottom: 15,
         gap: 15
     },
     statusContainer: {
-        flex: 1,
+        flex: 0,
+        minWidth:80,
     },
     statusBadge: {
         paddingHorizontal: 8,
