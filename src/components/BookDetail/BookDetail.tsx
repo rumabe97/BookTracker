@@ -100,7 +100,7 @@ const BookDetail = ({book, isVisible, onClose, onUpdate, onDelete}: {
                                     textStyle={bookDetailStyles.sectionTitle}
                                 />
                                 <ScrollView
-                                    style={[bookDetailStyles.descriptionScroll, {height: isDescriptionExpanded ? 150 : 80}]}
+                                    style={[bookDetailStyles.descriptionScroll, {maxHeight: isDescriptionExpanded ? 300 : 80}]}
                                     showsVerticalScrollIndicator={false}
                                 >
                                     <Text style={bookDetailStyles.descriptionText}>{book.description}</Text>

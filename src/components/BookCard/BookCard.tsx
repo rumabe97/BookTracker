@@ -94,12 +94,7 @@ const BookCard = (initialBook: Book) => {
                 </View>
             )}
             <Image source={{uri: book.coverImage ? book.coverImage : "https://via.placeholder.com/130x200.png",}}
-                   style={bookCardStyles.bookImage} onError={(error) => Toast.show({
-                type: 'error',
-                text1: book.coverImage,
-                text2: error.nativeEvent.error,
-                position: 'top',
-            })}/>
+                   style={bookCardStyles.bookImage}/>
             <View style={bookCardStyles.bookInfo}>
                 <Text style={bookCardStyles.bookTitle}
                       numberOfLines={1}>{book.title}</Text>
