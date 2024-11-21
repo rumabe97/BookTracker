@@ -18,7 +18,7 @@ const Router = () => {
             <RootStack.Screen name="CompletedBooks" component={MyBooks}
                               initialParams={{status: BookStatus.Completed}}/>
             <RootStack.Screen name="PendingBooks" component={MyBooks}
-                              initialParams={{status: BookStatus.Pending}}/>
+                              initialParams={{status: BookStatus.Pending, secondStatus: BookStatus.Reading}}/>
             <RootStack.Screen name="WishlistBooks" component={MyBooks}
                               initialParams={{status: BookStatus.Wishlist}}/>
             <RootStack.Screen name="DiscardedBooks" component={MyBooks}

@@ -27,6 +27,7 @@ export interface SearchBookDto {
     quantity: number;
     search?: string;
     status?: BookStatus;
+    secondStatus?: BookStatus;
 }
 
 export interface SearchBookNewestDto {

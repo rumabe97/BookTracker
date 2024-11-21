@@ -12,10 +12,9 @@ import Paginator from "../../components/Paginator";
 import {Book} from "../../core/entities/Book";
 import {initialState, reducer} from "./Reduces.ts";
 import {MyBooksStyles} from "./MyBooksStyles.ts";
-import {RootStackParamList} from "../../core/routing/StackParamList.ts";
-import {RouteProp, useRoute} from "@react-navigation/native";
+import {RootStackParamList, SearchBookRouteProp} from "../../core/routing/StackParamList.ts";
+import {useRoute} from "@react-navigation/native";
 
-type SearchBookRouteProp = RouteProp<RootStackParamList, 'CompletedBooks'>;
 
 const MyBooks = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -23,8 +22,8 @@ const MyBooks = () => {
     const myBooksStyles = MyBooksStyles(currentTheme);
     const {showLoader, hideLoader} = useLoader();
 
-    const route = useRoute<SearchBookRouteProp>();
-    const {status} = route.params
+    const route = useRoute<SearchBookRouteProp<keyof RootStackParamList>>();
+    const {status, secondStatus} = route.params as any;
 
     const handlePagination = useCallback((newValue: number) => {
         dispatch({type: 'SET_PAGE', payload: newValue});
@@ -44,6 +43,7 @@ const MyBooks = () => {
                 status,
                 page: state.page,
             }
+            if (secondStatus) searchDto.secondStatus = secondStatus;
             const {data, count}: { data: Book[], count: number } = await getBooks(searchDto);
             dispatch({
                 type: 'SET_BOOKS',

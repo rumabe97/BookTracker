@@ -22,6 +22,7 @@ const getBooks = async (searchBook: SearchBookDto): Promise<Response<BookDto>> =
         if (searchBook.quantity) params.append('quantity', searchBook.quantity.toString());
         if (searchBook.page) params.append('page', searchBook.page.toString());
         if (searchBook.status) params.append('status', searchBook.status)
+        if (searchBook.secondStatus) params.append('secondStatus', searchBook.secondStatus)
 
         const response = await authFetch(`${API_URL}/v0/book?${params.toString()}`);
 
