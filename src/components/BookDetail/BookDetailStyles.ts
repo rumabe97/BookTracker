@@ -132,7 +132,8 @@ export const BookDetailStyles = (theme: ThemeType) => StyleSheet.create({
         flexDirection: 'row',
         alignItems: "center",
         gap: 10,
-        marginBottom: 20
+        marginBottom: 20,
+        flexWrap:"wrap"
 
     },
     metadataTitle: {
