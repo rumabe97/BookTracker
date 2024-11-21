@@ -1,5 +1,14 @@
 import React, {useCallback, useState} from 'react';
-import {Image, Modal, ScrollView, Text, TouchableWithoutFeedback, View} from 'react-native';
+import {
+    Image,
+    KeyboardAvoidingView,
+    Modal,
+    Platform,
+    ScrollView,
+    Text,
+    TouchableWithoutFeedback,
+    View
+} from 'react-native';
 import {Book} from "../../core/entities/Book";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {
@@ -45,138 +54,144 @@ const BookDetail = ({book, isVisible, onClose, onUpdate, onDelete}: {
             visible={isVisible}
             onRequestClose={onClose}
         >
-            <TouchableWithoutFeedback onPress={onClose}>
-                <View style={bookDetailStyles.centeredView}>
-                    <TouchableWithoutFeedback>
-                        <View style={bookDetailStyles.modalView}>
-                            <ScrollView showsVerticalScrollIndicator={false}>
-                                <View style={bookDetailStyles.header}>
-                                    <View style={bookDetailStyles.titleContainer}>
-                                        <Text style={bookDetailStyles.modalTitle}>{book.title}</Text>
-                                        {(book.subTitle &&
-                                            <Text style={bookDetailStyles.modalAuthor}>{book.subTitle}</Text>)}
-                                        <Text style={bookDetailStyles.modalAuthor}>{book.author}</Text>
-                                    </View>
-                                    <Image
-                                        source={{uri: book.coverImage || 'https://via.placeholder.com/150x225'}}
-                                        style={bookDetailStyles.coverImage}
-                                    />
-                                </View>
-
-                                <View style={bookDetailStyles.infoContainer}>
-                                    <View style={bookDetailStyles.statusContainer}>
-                                        <Button
-                                            title={status ? status.charAt(0).toUpperCase() + status.slice(1) : 'No Status'}
-                                            onPress={() => setModalVisible(true)}
-                                            buttonStyle={[bookDetailStyles.statusBadge, {backgroundColor: statusColors[status] || statusColors.NoStatus}]}
-                                            textStyle={bookDetailStyles.statusText}
-                                        />
-                                        <ModalList options={getStatusOptions()} isVisible={modalVisible}
-                                                   onClose={() => setModalVisible(false)}
-                                                   itemSelected={handleSelectStatus}/>
-                                    </View>
-                                    <View style={bookDetailStyles.ratingContainer}>
-                                        <FontAwesomeIcon icon={faStar} color={'#FFD700'}/>
-                                        <Text
-                                            style={bookDetailStyles.ratingText}>{book.averageRating ?? 'No rating'}</Text>
-                                    </View>
-                                    <View style={bookDetailStyles.infoRow}>
-                                        <FontAwesomeIcon icon={faBook} color={currentTheme.textColor}/>
-                                        <Text style={bookDetailStyles.infoTextGenre}
-                                              numberOfLines={1}
-                                              ellipsizeMode="tail"
-                                        >{book.genre} </Text>
-                                    </View>
-                                    <View style={bookDetailStyles.infoRow}>
-                                        <FontAwesomeIcon icon={faHashtag} color={currentTheme.textColor}/>
-                                        <Text style={bookDetailStyles.infoText}>{book.pages} pages</Text>
-                                    </View>
-                                </View>
-                                <Button
-                                    title='Description'
-                                    onPress={toggleDescription}
-                                    buttonStyle={bookDetailStyles.descriptionHeader}
-                                    icon={isDescriptionExpanded ? faChevronUp : faChevronDown}
-                                    textStyle={bookDetailStyles.sectionTitle}
-                                />
-                                <ScrollView
-                                    style={[bookDetailStyles.descriptionScroll, {maxHeight: isDescriptionExpanded ? 300 : 80}]}
-                                    showsVerticalScrollIndicator={false}
-                                >
-                                    <Text style={bookDetailStyles.descriptionText}>{book.description}</Text>
-                                </ScrollView>
-
-                                <View style={bookDetailStyles.metadataContainer}>
-                                    <Text style={bookDetailStyles.metadataTitle}>Publication</Text>
-                                    <View style={bookDetailStyles.metadataColumn}>
-                                        <View style={bookDetailStyles.infoRow}>
-                                            <FontAwesomeIcon icon={faCalendar} color={currentTheme.textColor}/>
-                                            <Text style={bookDetailStyles.infoText}>
-                                                {new Date(book.publishedDate).toLocaleDateString('es-ES', {
-                                                    day: '2-digit',
-                                                    month: '2-digit',
-                                                    year: 'numeric'
-                                                })}
-                                            </Text>
+            <TouchableWithoutFeedback onPress={onClose} accessible={false}>
+                <KeyboardAvoidingView
+                    style={{flex: 1}}
+                    behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+                >
+                    <View style={bookDetailStyles.centeredView}>
+                        <TouchableWithoutFeedback>
+                            <View style={bookDetailStyles.modalView}>
+                                <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+                                    <View style={bookDetailStyles.header}>
+                                        <View style={bookDetailStyles.titleContainer}>
+                                            <Text style={bookDetailStyles.modalTitle}>{book.title}</Text>
+                                            {(book.subTitle &&
+                                                <Text style={bookDetailStyles.modalAuthor}>{book.subTitle}</Text>)}
+                                            <Text style={bookDetailStyles.modalAuthor}>{book.author}</Text>
                                         </View>
-                                        <Text style={bookDetailStyles.infoText}>ISBN-10: {book.isbn10}</Text>
-                                        <Text style={bookDetailStyles.infoText}>ISBN-13: {book.isbn13}</Text>
+                                        <Image
+                                            source={{uri: book.coverImage || 'https://via.placeholder.com/150x225'}}
+                                            style={bookDetailStyles.coverImage}
+                                        />
                                     </View>
-                                    {book.createdAt && book.updatedAt && (
-                                        <View>
-                                            <Text style={bookDetailStyles.metadataTitle}>Tracking</Text>
-                                            <View style={bookDetailStyles.metadataColumn}>
-                                                <View style={bookDetailStyles.infoRow}>
-                                                    <FontAwesomeIcon icon={faClock} color={currentTheme.textColor}/>
-                                                    <Text style={bookDetailStyles.infoText}>
-                                                        Added: {new Date(book.createdAt).toLocaleDateString('es-ES', {
+
+                                    <View style={bookDetailStyles.infoContainer}>
+                                        <View style={bookDetailStyles.statusContainer}>
+                                            <Button
+                                                title={status ? status.charAt(0).toUpperCase() + status.slice(1) : 'No Status'}
+                                                onPress={() => setModalVisible(true)}
+                                                buttonStyle={[bookDetailStyles.statusBadge, {backgroundColor: statusColors[status] || statusColors.NoStatus}]}
+                                                textStyle={bookDetailStyles.statusText}
+                                            />
+                                            <ModalList options={getStatusOptions()} isVisible={modalVisible}
+                                                       onClose={() => setModalVisible(false)}
+                                                       itemSelected={handleSelectStatus}/>
+                                        </View>
+                                        <View style={bookDetailStyles.ratingContainer}>
+                                            <FontAwesomeIcon icon={faStar} color={'#FFD700'}/>
+                                            <Text
+                                                style={bookDetailStyles.ratingText}>{book.averageRating ?? 'No rating'}</Text>
+                                        </View>
+                                        <View style={bookDetailStyles.infoRow}>
+                                            <FontAwesomeIcon icon={faBook} color={currentTheme.textColor}/>
+                                            <Text style={bookDetailStyles.infoTextGenre}
+                                                  numberOfLines={1}
+                                                  ellipsizeMode="tail"
+                                            >{book.genre} </Text>
+                                        </View>
+                                        <View style={bookDetailStyles.infoRow}>
+                                            <FontAwesomeIcon icon={faHashtag} color={currentTheme.textColor}/>
+                                            <Text style={bookDetailStyles.infoText}>{book.pages} pages</Text>
+                                        </View>
+                                    </View>
+                                    <Button
+                                        title='Description'
+                                        onPress={toggleDescription}
+                                        buttonStyle={bookDetailStyles.descriptionHeader}
+                                        icon={isDescriptionExpanded ? faChevronUp : faChevronDown}
+                                        textStyle={bookDetailStyles.sectionTitle}
+                                    />
+                                    <ScrollView
+                                        keyboardShouldPersistTaps="handled"
+                                        style={[bookDetailStyles.descriptionScroll, {maxHeight: isDescriptionExpanded ? 300 : 80}]}
+                                        showsVerticalScrollIndicator={false}
+                                    >
+                                        <Text style={bookDetailStyles.descriptionText}>{book.description}</Text>
+                                    </ScrollView>
+
+                                    <View style={bookDetailStyles.metadataContainer}>
+                                        <Text style={bookDetailStyles.metadataTitle}>Publication</Text>
+                                        <View style={bookDetailStyles.metadataColumn}>
+                                            <View style={bookDetailStyles.infoRow}>
+                                                <FontAwesomeIcon icon={faCalendar} color={currentTheme.textColor}/>
+                                                <Text style={bookDetailStyles.infoText}>
+                                                    {new Date(book.publishedDate).toLocaleDateString('es-ES', {
                                                         day: '2-digit',
                                                         month: '2-digit',
                                                         year: 'numeric'
                                                     })}
-                                                    </Text>
-                                                </View>
-                                                <View style={bookDetailStyles.infoRow}>
-                                                    <FontAwesomeIcon icon={faClock} color={currentTheme.textColor}/>
-                                                    <Text style={bookDetailStyles.infoText}>
-                                                        Updated: {new Date(book.updatedAt).toLocaleDateString('es-ES', {
-                                                        day: '2-digit',
-                                                        month: '2-digit',
-                                                        year: 'numeric'
-                                                    })}
-                                                    </Text>
+                                                </Text>
+                                            </View>
+                                            <Text style={bookDetailStyles.infoText}>ISBN-10: {book.isbn10}</Text>
+                                            <Text style={bookDetailStyles.infoText}>ISBN-13: {book.isbn13}</Text>
+                                        </View>
+                                        {book.createdAt && book.updatedAt && (
+                                            <View>
+                                                <Text style={bookDetailStyles.metadataTitle}>Tracking</Text>
+                                                <View style={bookDetailStyles.metadataColumn}>
+                                                    <View style={bookDetailStyles.infoRow}>
+                                                        <FontAwesomeIcon icon={faClock} color={currentTheme.textColor}/>
+                                                        <Text style={bookDetailStyles.infoText}>
+                                                            Added: {new Date(book.createdAt).toLocaleDateString('es-ES', {
+                                                            day: '2-digit',
+                                                            month: '2-digit',
+                                                            year: 'numeric'
+                                                        })}
+                                                        </Text>
+                                                    </View>
+                                                    <View style={bookDetailStyles.infoRow}>
+                                                        <FontAwesomeIcon icon={faClock} color={currentTheme.textColor}/>
+                                                        <Text style={bookDetailStyles.infoText}>
+                                                            Updated: {new Date(book.updatedAt).toLocaleDateString('es-ES', {
+                                                            day: '2-digit',
+                                                            month: '2-digit',
+                                                            year: 'numeric'
+                                                        })}
+                                                        </Text>
+                                                    </View>
                                                 </View>
                                             </View>
-                                        </View>
+                                        )}
+                                    </View>
+                                </ScrollView>
+
+                                <View style={bookDetailStyles.footer}>
+                                    <Button
+                                        title={`Add to ${!status ? 'Wishlist' : status}`}
+                                        onPress={() => onUpdate(status)}
+                                        disabled={status === book.status}
+                                        buttonStyle={[bookDetailStyles.wishlistButton, status === book.status && bookDetailStyles.wishlistButtonDisabled]}
+                                        textStyle={bookDetailStyles.wishlistButtonText}
+                                    />
+                                    <Button
+                                        title='Close'
+                                        onPress={onClose}
+                                        buttonStyle={bookDetailStyles.closeButton}
+                                        textStyle={bookDetailStyles.closeButtonText}
+                                    />
+                                    {book._id && (<Button
+                                            title='Delete'
+                                            onPress={onDelete}
+                                            buttonStyle={bookDetailStyles.deleteButton}
+                                            textStyle={bookDetailStyles.deleteButtonText}
+                                        />
                                     )}
                                 </View>
-                            </ScrollView>
-
-                            <View style={bookDetailStyles.footer}>
-                                <Button
-                                    title={`Add to ${!status ? 'Wishlist' : status}`}
-                                    onPress={() => onUpdate(status)}
-                                    disabled={status === book.status}
-                                    buttonStyle={[bookDetailStyles.wishlistButton, status === book.status && bookDetailStyles.wishlistButtonDisabled]}
-                                    textStyle={bookDetailStyles.wishlistButtonText}
-                                />
-                                <Button
-                                    title='Close'
-                                    onPress={onClose}
-                                    buttonStyle={bookDetailStyles.closeButton}
-                                    textStyle={bookDetailStyles.closeButtonText}
-                                />
-                                {book._id && (<Button
-                                        title='Delete'
-                                        onPress={onDelete}
-                                        buttonStyle={bookDetailStyles.deleteButton}
-                                        textStyle={bookDetailStyles.deleteButtonText}
-                                    />
-                                )}
                             </View>
-                        </View>
-                    </TouchableWithoutFeedback>
-                </View>
+                        </TouchableWithoutFeedback>
+                    </View>
+                </KeyboardAvoidingView>
             </TouchableWithoutFeedback>
         </Modal>
     );
