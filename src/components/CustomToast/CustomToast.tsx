@@ -4,10 +4,12 @@ import Toast, {BaseToast, ErrorToast, ToastConfig} from "react-native-toast-mess
 import {CustomToastStyles} from "./CustomToastStyles.ts";
 import Button from "../Button";
 import {useTheme} from "../../context/DarkMode/DarkModeProvider.tsx";
+import {useTranslation} from "react-i18next";
 
 const CustomToast = () => {
     const {currentTheme} = useTheme();
     const customToastStyles = CustomToastStyles(currentTheme);
+    const {t} = useTranslation();
 
     const toastConfig: ToastConfig = {
         error: (props) => (
@@ -51,13 +53,13 @@ const CustomToast = () => {
                 renderTrailingIcon={() => (
                     <View style={customToastStyles.buttonContainer}>
                         <Button
-                            title="Confirm"
+                            title={t('toastDelete3', {ns: 'bookCard'})}
                             onPress={props.onConfirm}
                             buttonStyle={customToastStyles.confirmButton}
                             textStyle={customToastStyles.buttonText}
                         />
                         <Button
-                            title="Cancel"
+                            title={t('toastDelete4', {ns: 'bookCard'})}
                             onPress={props.onCancel}
                             buttonStyle={customToastStyles.cancelButton}
                             textStyle={customToastStyles.buttonText}

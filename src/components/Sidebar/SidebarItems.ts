@@ -8,6 +8,8 @@ import {
     IconDefinition
 } from "@fortawesome/free-solid-svg-icons";
 
+import i18n from '../../lib/i18n';
+
 export interface NavItem {
     icon: IconDefinition;
     label: string;
@@ -15,10 +17,10 @@ export interface NavItem {
 }
 
 export const navItems: NavItem[] = [
-    {icon: faHouse, label: 'Home', screen: 'Home'},
-    {icon: faCirclePlus, label: 'Search Books', screen: 'SearchBook'},
-    {icon: faBookOpen, label: 'My Books', screen: 'CompletedBooks'},
-    {icon: faClock, label: 'Pending', screen: 'PendingBooks'},
-    {icon: faList, label: 'Wishlist', screen: 'WishlistBooks'},
-    {icon: faXmark, label: 'Discarded', screen: 'DiscardedBooks'},
+    {icon: faHouse, label: i18n.t('home', {ns:'sidebar'}), screen: 'Home'},
+    {icon: faCirclePlus, label: i18n.t('searchBooks', {ns:'sidebar'}), screen: 'SearchBook'},
+    {icon: faBookOpen, label: i18n.t('myBooks', {ns:'sidebar'}), screen: 'CompletedBooks'},
+    {icon: faClock, label: i18n.t('pending', {ns:'sidebar'}), screen: 'PendingBooks'},
+    {icon: faList, label: i18n.t('myWishlist', {ns:'sidebar'}), screen: 'WishlistBooks'},
+    {icon: faXmark, label: i18n.t('discarded', {ns:'sidebar'}), screen: 'DiscardedBooks'},
 ];

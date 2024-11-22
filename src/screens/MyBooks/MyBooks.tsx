@@ -14,6 +14,7 @@ import {initialState, reducer} from "./Reduces.ts";
 import {MyBooksStyles} from "./MyBooksStyles.ts";
 import {RootStackParamList, SearchBookRouteProp} from "../../core/routing/StackParamList.ts";
 import {useRoute} from "@react-navigation/native";
+import {useTranslation} from "react-i18next";
 
 
 const MyBooks = () => {
@@ -21,6 +22,7 @@ const MyBooks = () => {
     const {currentTheme} = useTheme();
     const myBooksStyles = MyBooksStyles(currentTheme);
     const {showLoader, hideLoader} = useLoader();
+    const {t} = useTranslation();
 
     const route = useRoute<SearchBookRouteProp<keyof RootStackParamList>>();
     const {status, secondStatus} = route.params as any;
@@ -55,13 +57,13 @@ const MyBooks = () => {
 
     return (
         <SafeAreaView style={myBooksStyles.container}>
-            <SearchInputs handleTitleAuthor={handleSearch} options={['Search']}/>
+            <SearchInputs handleTitleAuthor={handleSearch} options={[t('search', {ns: 'myBooks'})]}/>
             <View style={myBooksStyles.flatContainer}>
                 <FlatList
                     data={state.currentBooks}
                     renderItem={({item}) => <BookCard {...item} />}
-                    ListEmptyComponent={<EmptyList title={"No books to display"}
-                                                   description={"Enter a title or author to find books. If nothing appears, try refining your search."}/>}
+                    ListEmptyComponent={<EmptyList title={t('emptyTitle', {ns: 'myBooks'})}
+                                                   description={t('emptyDescription', {ns: 'myBooks'})}/>}
                     keyExtractor={(item) => item.idGoogle}
                     numColumns={2}
                     columnWrapperStyle={myBooksStyles.bookRow}

@@ -24,7 +24,8 @@ import Button from "../Button";
 import {useTheme} from "../../context/DarkMode/DarkModeProvider.tsx";
 import {BookDetailStyles, statusColors} from "./BookDetailStyles.ts";
 import ModalList from "../ModalList";
-import {BookStatus, getStatusOptions} from "../../core/entities/BookStatus/BookStatus.ts";
+import {BookStatus, getStatusOptions, statusLabels} from "../../core/entities/BookStatus/BookStatus.ts";
+import {useTranslation} from "react-i18next";
 
 
 const BookDetail = ({book, isVisible, onClose, onUpdate, onDelete}: {
@@ -39,6 +40,7 @@ const BookDetail = ({book, isVisible, onClose, onUpdate, onDelete}: {
     const [modalVisible, setModalVisible] = useState(false);
     const {currentTheme} = useTheme();
     const bookDetailStyles = BookDetailStyles(currentTheme);
+    const {t} = useTranslation();
 
     const handleSelectStatus = useCallback((status: BookStatus) => {
         setStatus(status);
@@ -79,7 +81,7 @@ const BookDetail = ({book, isVisible, onClose, onUpdate, onDelete}: {
                                     <View style={bookDetailStyles.infoContainer}>
                                         <View style={bookDetailStyles.statusContainer}>
                                             <Button
-                                                title={status ? status.charAt(0).toUpperCase() + status.slice(1) : 'No Status'}
+                                                title={status ? statusLabels[status] : t('noStatus', {ns: 'bookDetail'})}
                                                 onPress={() => setModalVisible(true)}
                                                 buttonStyle={[bookDetailStyles.statusBadge, {backgroundColor: statusColors[status] || statusColors.NoStatus}]}
                                                 textStyle={bookDetailStyles.statusText}
@@ -91,7 +93,7 @@ const BookDetail = ({book, isVisible, onClose, onUpdate, onDelete}: {
                                         <View style={bookDetailStyles.ratingContainer}>
                                             <FontAwesomeIcon icon={faStar} color={'#FFD700'}/>
                                             <Text
-                                                style={bookDetailStyles.ratingText}>{book.averageRating ?? 'No rating'}</Text>
+                                                style={bookDetailStyles.ratingText}>{book.averageRating ?? t('noRating', {ns: 'bookDetail'})}</Text>
                                         </View>
                                         <View style={bookDetailStyles.infoRow}>
                                             <FontAwesomeIcon icon={faBook} color={currentTheme.textColor}/>
@@ -102,11 +104,11 @@ const BookDetail = ({book, isVisible, onClose, onUpdate, onDelete}: {
                                         </View>
                                         <View style={bookDetailStyles.infoRow}>
                                             <FontAwesomeIcon icon={faHashtag} color={currentTheme.textColor}/>
-                                            <Text style={bookDetailStyles.infoText}>{book.pages} pages</Text>
+                                            <Text style={bookDetailStyles.infoText}>{book.pages} {t('pages', {ns: 'bookDetail'})}</Text>
                                         </View>
                                     </View>
                                     <Button
-                                        title='Description'
+                                        title={t('description', {ns: 'bookDetail'})}
                                         onPress={toggleDescription}
                                         buttonStyle={bookDetailStyles.descriptionHeader}
                                         icon={isDescriptionExpanded ? faChevronUp : faChevronDown}
@@ -121,7 +123,7 @@ const BookDetail = ({book, isVisible, onClose, onUpdate, onDelete}: {
                                     </ScrollView>
 
                                     <View style={bookDetailStyles.metadataContainer}>
-                                        <Text style={bookDetailStyles.metadataTitle}>Publication</Text>
+                                        <Text style={bookDetailStyles.metadataTitle}>{t('publication', {ns: 'bookDetail'})}</Text>
                                         <View style={bookDetailStyles.metadataColumn}>
                                             <View style={bookDetailStyles.infoRow}>
                                                 <FontAwesomeIcon icon={faCalendar} color={currentTheme.textColor}/>
@@ -138,12 +140,12 @@ const BookDetail = ({book, isVisible, onClose, onUpdate, onDelete}: {
                                         </View>
                                         {book.createdAt && book.updatedAt && (
                                             <View>
-                                                <Text style={bookDetailStyles.metadataTitle}>Tracking</Text>
+                                                <Text style={bookDetailStyles.metadataTitle}>{t('tracking', {ns: 'bookDetail'})}</Text>
                                                 <View style={bookDetailStyles.metadataColumn}>
                                                     <View style={bookDetailStyles.infoRow}>
                                                         <FontAwesomeIcon icon={faClock} color={currentTheme.textColor}/>
                                                         <Text style={bookDetailStyles.infoText}>
-                                                            Added: {new Date(book.createdAt).toLocaleDateString('es-ES', {
+                                                            {t('added', {ns: 'bookDetail'})}: {new Date(book.createdAt).toLocaleDateString('es-ES', {
                                                             day: '2-digit',
                                                             month: '2-digit',
                                                             year: 'numeric'
@@ -153,7 +155,7 @@ const BookDetail = ({book, isVisible, onClose, onUpdate, onDelete}: {
                                                     <View style={bookDetailStyles.infoRow}>
                                                         <FontAwesomeIcon icon={faClock} color={currentTheme.textColor}/>
                                                         <Text style={bookDetailStyles.infoText}>
-                                                            Updated: {new Date(book.updatedAt).toLocaleDateString('es-ES', {
+                                                            {t('updated', {ns: 'bookDetail'})}: {new Date(book.updatedAt).toLocaleDateString('es-ES', {
                                                             day: '2-digit',
                                                             month: '2-digit',
                                                             year: 'numeric'
@@ -168,20 +170,20 @@ const BookDetail = ({book, isVisible, onClose, onUpdate, onDelete}: {
 
                                 <View style={bookDetailStyles.footer}>
                                     <Button
-                                        title={`Add to ${!status ? 'Wishlist' : status}`}
+                                        title={`${t('addTo', {ns: 'bookDetail'})} ${!status ? 'Wishlist' : statusLabels[status]}`}
                                         onPress={() => onUpdate(status)}
                                         disabled={status === book.status}
                                         buttonStyle={[bookDetailStyles.wishlistButton, status === book.status && bookDetailStyles.wishlistButtonDisabled]}
                                         textStyle={bookDetailStyles.wishlistButtonText}
                                     />
                                     <Button
-                                        title='Close'
+                                        title={t('close', {ns: 'bookDetail'})}
                                         onPress={onClose}
                                         buttonStyle={bookDetailStyles.closeButton}
                                         textStyle={bookDetailStyles.closeButtonText}
                                     />
                                     {book._id && (<Button
-                                            title='Delete'
+                                            title={t('delete', {ns: 'bookDetail'})}
                                             onPress={onDelete}
                                             buttonStyle={bookDetailStyles.deleteButton}
                                             textStyle={bookDetailStyles.deleteButtonText}

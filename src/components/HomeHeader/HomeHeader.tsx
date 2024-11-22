@@ -5,13 +5,14 @@ import Button from "../Button";
 import {useTheme} from "../../context/DarkMode/DarkModeProvider.tsx";
 import {HomeHeaderStyles} from "./HomeHeaderStyles.tsx";
 import IndicatorAnimation from "./animations/IndicatorAnimation.ts";
+import {useTranslation} from "react-i18next";
 
 
 const HomeHeader = ({handleType}: { handleType: (newType: "newest" | "relevance") => void }) => {
     const [activeTab, setActiveTab] = useState('newest');
     const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width);
     const insets = useSafeAreaInsets();
-
+    const {t} = useTranslation();
     const {currentTheme} = useTheme();
     const homeHeaderStyles = HomeHeaderStyles(currentTheme, screenWidth);
     const indicatorAnimation = IndicatorAnimation(activeTab as any, screenWidth);
@@ -31,7 +32,7 @@ const HomeHeader = ({handleType}: { handleType: (newType: "newest" | "relevance"
             ]}>
                 <View style={homeHeaderStyles.tabBar}>
                     <Button
-                        title="Newest"
+                        title={t('newest', {ns:'home'})}
                         onPress={() => {
                             setActiveTab('newest');
                             handleType('newest');
@@ -41,7 +42,7 @@ const HomeHeader = ({handleType}: { handleType: (newType: "newest" | "relevance"
                         textStyle={[homeHeaderStyles.tabText, activeTab === 'newest' && homeHeaderStyles.activeTabText]}
                     />
                     <Button
-                        title="Relevant"
+                        title={t('relevance', {ns:'home'})}
                         onPress={() => {
                             setActiveTab('relevance');
                             handleType('relevance');

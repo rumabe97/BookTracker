@@ -12,6 +12,7 @@ import {SearchBookStyles} from "./SearchBookStyles.ts";
 import {initialState, reducer} from "./Reduces.ts";
 import SearchInputs from "../../components/SearchInputs";
 import EmptyList from "../../components/EmptyList";
+import {useTranslation} from "react-i18next";
 
 const SearchBook = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -26,6 +27,7 @@ const SearchBook = () => {
     const handleTitleAuthor = useCallback((newValue: string[]) => {
         dispatch({type: 'SET_TITLE_AUTHOR', payload: newValue});
     }, [])
+    const {t} = useTranslation();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -47,13 +49,14 @@ const SearchBook = () => {
 
     return (
         <SafeAreaView style={searchBookStyles.container}>
-            <SearchInputs handleTitleAuthor={handleTitleAuthor} options={['Title', 'Author']}/>
+            <SearchInputs handleTitleAuthor={handleTitleAuthor}
+                          options={[t('title', {ns: 'searchBooks'}), t('author', {ns: 'searchBooks'})]}/>
             <View style={searchBookStyles.flatContainer}>
                 <FlatList
                     data={state.currentBooks}
                     renderItem={({item}) => <BookCard {...item} />}
-                    ListEmptyComponent={<EmptyList title={"No books to display"}
-                                                   description={"Enter a title or author to find books. If nothing appears, try refining your search."}/>}
+                    ListEmptyComponent={<EmptyList title={t('emptyTitle', {ns: 'searchBooks'})}
+                                                   description={t('emptyDescription', {ns: 'searchBooks'})}/>}
                     keyExtractor={(item) => item.idGoogle}
                     numColumns={2}
                     columnWrapperStyle={searchBookStyles.bookRow}
