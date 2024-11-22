@@ -5,7 +5,7 @@ export const CustomToastStyles = (theme: ThemeType) => StyleSheet.create({
     toast: {
         borderLeftColor: '#F59E0B',
         borderLeftWidth: 5,
-        height: 150,
+        height: 180,
         flexDirection: 'column',
         padding: 10,
         marginTop: 40,
