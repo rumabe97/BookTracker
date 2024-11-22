@@ -99,7 +99,6 @@ export const BookDetailStyles = (theme: ThemeType) => StyleSheet.create({
         fontSize: 12,
         color: theme.textColor,
         marginLeft: 4,
-        maxWidth: 70
     },
     descriptionHeader: {
         color: theme.textColor,

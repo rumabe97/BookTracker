@@ -98,8 +98,7 @@ const BookDetail = ({book, isVisible, onClose, onUpdate, onDelete}: {
                                         <View style={bookDetailStyles.infoRow}>
                                             <FontAwesomeIcon icon={faBook} color={currentTheme.textColor}/>
                                             <Text style={bookDetailStyles.infoTextGenre}
-                                                  numberOfLines={1}
-                                                  ellipsizeMode="tail"
+                                                  numberOfLines={0}
                                             >{book.genre} </Text>
                                         </View>
                                         <View style={bookDetailStyles.infoRow}>
