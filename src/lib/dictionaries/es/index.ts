@@ -6,5 +6,6 @@ import myBooks from "./myBooks.ts";
 import searchBooks from "./searchBooks.ts";
 import bookDetail from "./bookDetail.ts";
 import statusLabel from "./statusLabel.ts";
+import header from "./header.ts";
 
-export default {sidebar, home, bookCard, paginator, myBooks, searchBooks, bookDetail, statusLabel};
+export default {sidebar, home, bookCard, paginator, myBooks, searchBooks, bookDetail, statusLabel, header};
