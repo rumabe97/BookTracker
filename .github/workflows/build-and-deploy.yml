@@ -27,26 +27,27 @@ jobs:
         env:
           API_AUTH: ${{ secrets.API_AUTH }}
           API_URL: ${{ secrets.API_URL }}
-          VERSION: $(node -pe "require('./package.json').version")
-          APP_NAME: $(node -pe "require('./package.json').name")
-        run: echo "Building with API_URL=${{ env.API_URL }} API_AUTH=${{ env.API_AUTH }} VERSION=${{ env.VERSION }} APP_NAME=${{ env.APP_NAME }}"
+        run: echo "Building with API_URL=${{ secrets.API_URL }} API_AUTH=${{ secrets.API_AUTH }}"
 
-#      - name: Install dependencies
-#        run: npm install
-#
-#      - name: Build APK
-#        run: |
-#          cd android
-#          ./gradlew assembleRelease
-#
-#      - name: Rename APK with version
-#        run: |
-#          mv android/app/build/outputs/apk/release/app-release.apk "${APP_NAME}-${VERSION}.apk"
-#
-#      - name: Upload apk to Google Drive
+      - name: Install dependencies
+        run: npm install
+
+      #      - name: Build APK
+      #        run: |
+      #          cd android
+      #          ./gradlew assembleRelease
+
+      - name: Rename APK with version
+        run: |
+          VERSION=$(node -pe "require('./package.json').version")
+          APP_NAME=$(node -pe "require('./package.json').name")
+      #          mv android/app/build/outputs/apk/release/app-release.apk "${APP_NAME}-${VERSION}.apk"
+
+      - name: Upload apk to Google Drive
+        run: echo "android/app/build/outputs/apk/release/${{ APP_NAME }}-${{ VERSION }}.apk"
 #        uses: logickoder/google-drive-upload@main
 #        with:
 #          credentials: ${{ secrets.GOOGLE_DRIVE_CREDENTIALS }}
-#          filename: "android/app/build/outputs/apk/release/${{ env.APP_NAME }}-${{ env.VERSION }}.apk"
+#          filename: "android/app/build/outputs/apk/release/${{ APP_NAME }}-${{ VERSION }}.apk"
 #          overwrite: "true"
 #          folderId: ${{ secrets.FOLDER_ID }}
