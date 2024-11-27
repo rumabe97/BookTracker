@@ -105,7 +105,7 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             applicationVariants.all { variant ->
                             variant.outputs.all { output ->
-                                output.outputFileName = "BookTracker-${variant.buildType.name}.apk"
+                                output.outputFileName = "app-${variant.buildType.name}.apk"
                             }
                         }
         }
