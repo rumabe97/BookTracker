@@ -36,5 +36,6 @@ jobs:
         run: |
           VERSION=$(node -pe "require('./package.json').version")
           APP_NAME=$(node -pe "require('./package.json').name")
-          dir
+          cd android/app/build/outputs/apk/release
+          ls
           mv ./android/app/build/outputs/apk/release/app-release.apk "${APP_NAME}-${VERSION}.apk"
