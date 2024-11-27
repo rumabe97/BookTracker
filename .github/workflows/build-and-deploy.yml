@@ -38,4 +38,4 @@ jobs:
           APP_NAME=$(node -pe "require('./package.json').name")
           cd android/app/build/outputs/apk/release
           ls
-          mv ./android/app/build/outputs/apk/release/app-release.apk "${APP_NAME}-${VERSION}.apk"
+          mv app-release.apk "${APP_NAME}-${VERSION}.apk"
