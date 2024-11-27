@@ -23,11 +23,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+
       - name: Set environment variables
         env:
           API_AUTH: ${{ secrets.API_AUTH }}
           API_URL: ${{ secrets.API_URL }}
-        run: echo "Building with API_URL=${{ secrets.API_URL }} API_AUTH=${{ secrets.API_AUTH }}"
+        run: |
+          echo "API_URL=${{ secrets.API_URL }}" >> $GITHUB_ENV
+          echo "API_AUTH=${{ secrets.API_AUTH }}" >> $GITHUB_ENV
+          echo "Building with API_URL=${{ secrets.API_URL }} API_AUTH=${{ secrets.API_AUTH }}"
 
       - name: Install dependencies
         run: npm install
