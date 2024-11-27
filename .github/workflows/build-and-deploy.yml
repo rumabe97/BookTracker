@@ -48,6 +48,6 @@ jobs:
         uses: logickoder/google-drive-upload@main
         with:
           credentials: ${{ secrets.GOOGLE_DRIVE_CREDENTIALS }}
-          filename: "android/app/build/outputs/apk/release/${{ env.FILE_PATH }}"
+          filename: "${{ env.FILE_PATH }}"
           overwrite: "true"
           folderId: ${{ secrets.FOLDER_ID }}
