@@ -32,23 +32,22 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      #      - name: Build APK
-      #        run: |
-      #          cd android
-      #          ./gradlew assembleRelease
+      - name: Build APK
+        run: |
+          cd android
+          ./gradlew assembleRelease
 
       - name: Rename APK with version
         run: |
           VERSION=$(node -pe "require('./package.json').version")
           APP_NAME=$(node -pe "require('./package.json').name")
+          mv android/app/build/outputs/apk/release/app-release.apk "${APP_NAME}-${VERSION}.apk"
           echo "FILE_PATH=${APP_NAME}-${VERSION}.apk" >> $GITHUB_ENV
-      #          mv android/app/build/outputs/apk/release/app-release.apk "${APP_NAME}-${VERSION}.apk"
 
       - name: Upload apk to Google Drive
-        run: echo ${{ env.FILE_PATH }}
-#        uses: logickoder/google-drive-upload@main
-#        with:
-#          credentials: ${{ secrets.GOOGLE_DRIVE_CREDENTIALS }}
-#          filename: "android/app/build/outputs/apk/release/${{ APP_NAME }}-${{ VERSION }}.apk"
-#          overwrite: "true"
-#          folderId: ${{ secrets.FOLDER_ID }}
+        uses: logickoder/google-drive-upload@main
+        with:
+          credentials: ${{ secrets.GOOGLE_DRIVE_CREDENTIALS }}
+          filename: "android/app/build/outputs/apk/release/${{ env.FILE_PATH }}"
+          overwrite: "true"
+          folderId: ${{ secrets.FOLDER_ID }}
