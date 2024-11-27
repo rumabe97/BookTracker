@@ -44,11 +44,9 @@ jobs:
           mv android/app/build/outputs/apk/release/app-release.apk "${APP_NAME}-${VERSION}.apk"
 
       - name: Upload apk to Google Drive
-#        uses: logickoder/google-drive-upload@main
-        run: |
-          pwd dir
-#        with:
-#          credentials: ${{ secrets.GOOGLE_DRIVE_CREDENTIALS }}
-#          filename: "${{ env.APP_NAME }}-${{ env.VERSION }}.apk"
-#          overwrite: "true"
-#          folderId: ${{ secrets.FOLDER_ID }}
+        uses: logickoder/google-drive-upload@main
+        with:
+          credentials: ${{ secrets.GOOGLE_DRIVE_CREDENTIALS }}
+          filename: "android/app/build/outputs/apk/release/${{ env.APP_NAME }}-${{ env.VERSION }}.apk"
+          overwrite: "true"
+          folderId: ${{ secrets.FOLDER_ID }}
