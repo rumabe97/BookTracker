@@ -23,7 +23,8 @@ jobs:
 
       - name: Build APK
         run: |
-          npx react-native run-android --variant=release
+          cd android
+          ./gradlew assembleRelease
 
       - name: Rename APK with version
         run: |

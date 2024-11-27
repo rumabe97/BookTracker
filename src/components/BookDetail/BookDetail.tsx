@@ -63,7 +63,7 @@ const BookDetail = ({book, isVisible, onClose, onUpdate, onDelete}: {
                 >
                     <View style={bookDetailStyles.centeredView}>
                         <TouchableWithoutFeedback>
-                            <View style={bookDetailStyles.modalView}>
+                            <View style={bookDetailStyles.modalView} onStartShouldSetResponder={() => true}>
                                 <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
                                     <View style={bookDetailStyles.header}>
                                         <View style={bookDetailStyles.titleContainer}>
@@ -103,7 +103,8 @@ const BookDetail = ({book, isVisible, onClose, onUpdate, onDelete}: {
                                         </View>
                                         <View style={bookDetailStyles.infoRow}>
                                             <FontAwesomeIcon icon={faHashtag} color={currentTheme.textColor}/>
-                                            <Text style={bookDetailStyles.infoText}>{book.pages} {t('pages', {ns: 'bookDetail'})}</Text>
+                                            <Text
+                                                style={bookDetailStyles.infoText}>{book.pages} {t('pages', {ns: 'bookDetail'})}</Text>
                                         </View>
                                     </View>
                                     <Button
@@ -113,16 +114,18 @@ const BookDetail = ({book, isVisible, onClose, onUpdate, onDelete}: {
                                         icon={isDescriptionExpanded ? faChevronUp : faChevronDown}
                                         textStyle={bookDetailStyles.sectionTitle}
                                     />
-                                    <ScrollView
-                                        keyboardShouldPersistTaps="handled"
-                                        style={[bookDetailStyles.descriptionScroll, {maxHeight: isDescriptionExpanded ? 300 : 80}]}
-                                        showsVerticalScrollIndicator={false}
-                                    >
-                                        <Text style={bookDetailStyles.descriptionText}>{book.description}</Text>
-                                    </ScrollView>
-
+                                    <View style={{flex:1}} onStartShouldSetResponder={() => true}>
+                                        <ScrollView
+                                            keyboardShouldPersistTaps="handled"
+                                            style={[bookDetailStyles.descriptionScroll, {maxHeight: isDescriptionExpanded ? 300 : 80}]}
+                                            showsVerticalScrollIndicator={false}
+                                        >
+                                            <Text style={bookDetailStyles.descriptionText}>{book.description}</Text>
+                                        </ScrollView>
+                                    </View>
                                     <View style={bookDetailStyles.metadataContainer}>
-                                        <Text style={bookDetailStyles.metadataTitle}>{t('publication', {ns: 'bookDetail'})}</Text>
+                                        <Text
+                                            style={bookDetailStyles.metadataTitle}>{t('publication', {ns: 'bookDetail'})}</Text>
                                         <View style={bookDetailStyles.metadataColumn}>
                                             <View style={bookDetailStyles.infoRow}>
                                                 <FontAwesomeIcon icon={faCalendar} color={currentTheme.textColor}/>
@@ -139,7 +142,8 @@ const BookDetail = ({book, isVisible, onClose, onUpdate, onDelete}: {
                                         </View>
                                         {book.createdAt && book.updatedAt && (
                                             <View>
-                                                <Text style={bookDetailStyles.metadataTitle}>{t('tracking', {ns: 'bookDetail'})}</Text>
+                                                <Text
+                                                    style={bookDetailStyles.metadataTitle}>{t('tracking', {ns: 'bookDetail'})}</Text>
                                                 <View style={bookDetailStyles.metadataColumn}>
                                                     <View style={bookDetailStyles.infoRow}>
                                                         <FontAwesomeIcon icon={faClock} color={currentTheme.textColor}/>
