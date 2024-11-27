@@ -1,0 +1,32 @@
+name: Build and Deploy App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build APK
+        run: |
+          npx react-native run-android --variant=release
+
+      - name: Rename APK with version
+        run: |
+          VERSION=$(node -pe "require('./package.json').version")
+          APP_NAME=$(node -pe "require('./package.json').name")
+          mv android/app/build/outputs/apk/release/app-release.apk "${APP_NAME}-${VERSION}.apk"
