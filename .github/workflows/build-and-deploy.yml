@@ -41,10 +41,11 @@ jobs:
         run: |
           VERSION=$(node -pe "require('./package.json').version")
           APP_NAME=$(node -pe "require('./package.json').name")
+          echo "FILE_PATH=${APP_NAME}-${VERSION}.apk" >> $GITHUB_ENV
       #          mv android/app/build/outputs/apk/release/app-release.apk "${APP_NAME}-${VERSION}.apk"
 
       - name: Upload apk to Google Drive
-        run: echo "android/app/build/outputs/apk/release/${{ APP_NAME }}-${{ VERSION }}.apk"
+        run: echo ${{ env.FILE_PATH }}
 #        uses: logickoder/google-drive-upload@main
 #        with:
 #          credentials: ${{ secrets.GOOGLE_DRIVE_CREDENTIALS }}
