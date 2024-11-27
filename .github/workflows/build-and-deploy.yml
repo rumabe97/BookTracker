@@ -25,17 +25,17 @@ jobs:
           node-version: '18'
       - name: Set environment variables
         env:
-            API_AUTH: ${{ secrets.API_AUTH }}
-            API_URL: ${{ secrets.API_URL }}
+          API_AUTH: ${{ secrets.API_AUTH }}
+          API_URL: ${{ secrets.API_URL }}
         run: echo "Building with API_URL=${{ secrets.API_URL }} API_AUTH=${{ secrets.API_AUTH }}"
 
       - name: Install dependencies
         run: npm install
 
-#      - name: Build APK
-#        run: |
-#          cd android
-#          ./gradlew assembleRelease
+      - name: Build APK
+        run: |
+          cd android
+          ./gradlew assembleRelease
 
       - name: Rename APK with version
         run: |
@@ -43,3 +43,16 @@ jobs:
           APP_NAME=$(node -pe "require('./package.json').name")
           cd android/app/build/outputs/apk/release
           mv app-release.apk "${APP_NAME}-${VERSION}.apk"
+
+      - name: Upload APK to GitHub Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: |
+            ${APP_NAME}-${VERSION}.apk
+          token: ${{ secrets.GITHUB_TOKEN }} # Token generado automáticamente por GitHub Actions
+          tag: v${{ steps.get_version.outputs.VERSION }} # Etiqueta de la versión
+          name: "Release v${{ steps.get_version.outputs.VERSION }}" # Nombre del release
+          body: |
+            - Versión: ${{ steps.get_version.outputs.VERSION }}
+            - API URL: ${{ secrets.API_URL }}
+          prerelease: false
