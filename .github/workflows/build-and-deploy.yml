@@ -32,17 +32,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-#      - name: Build APK
-#        run: |
-#          cd android
-#          ./gradlew assembleRelease
+      - name: Build APK
+        run: |
+          cd android
+          ./gradlew assembleRelease
 
       - name: Rename APK with version
         run: |
           VERSION=$(node -pe "require('./package.json').version")
           APP_NAME=$(node -pe "require('./package.json').name")
           cd android/app/build/outputs/apk/release
-#          mv app-release.apk "${APP_NAME}-${VERSION}.apk"
+          mv app-release.apk "${APP_NAME}-${VERSION}.apk"
 
       - name: Upload apk to Google Drive
 #        uses: logickoder/google-drive-upload@main
