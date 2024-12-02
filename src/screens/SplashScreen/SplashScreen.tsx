@@ -4,20 +4,23 @@ import SplashPage from "../../components/SplashComponents";
 import {SplashScreenStyles} from "./SplanshScreenStyles.ts";
 import {getHealth} from "../../core/services/HealthCheck/getHealth.ts";
 import {useNavigation} from "@react-navigation/native";
+import {version} from "../../../package.json";
+import {downloadAndInstallAPK} from "./DownloadApk.ts";
 
 const SplashScreen = () => {
     const navigation = useNavigation();
-
+    console.log(version)
     useEffect(() => {
         const fetchData = async () => {
-            const result = await getHealth();
-
-            if (result.status === 'healthy') {
+            const result = await getHealth(version);
+            console.log(result)
+            if (result.outdated) await downloadAndInstallAPK(result.downloadUrl as string)
+            /*if (result.status === 'healthy') {
                 navigation.reset({
                     index: 0,
                     routes: [{name: 'Home' as never}]
                 });
-            }
+            }*/
         };
         fetchData().then();
     }, []);

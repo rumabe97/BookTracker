@@ -1,7 +1,7 @@
 import {authFetch} from "../utils/authFetch.ts";
 import {healthCheckDto} from "./@types/HealthCheck.types.ts";
 
-const {API_URL = 'https://book-tracker-api-pro.vercel.app'} = process.env;
+const {API_URL = 'https://book-tracker-api-dev.vercel.app'} = process.env;
 
 const healthCheck = async (version: string): Promise<healthCheckDto> => {
     try {
