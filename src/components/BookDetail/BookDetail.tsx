@@ -1,5 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import {
+    Dimensions,
     Image,
     KeyboardAvoidingView,
     Modal,
@@ -26,6 +27,7 @@ import {BookDetailStyles, statusColors} from "./BookDetailStyles.ts";
 import ModalList from "../ModalList";
 import {BookStatus, getStatusOptions, statusLabels} from "../../core/entities/BookStatus/BookStatus.ts";
 import {useTranslation} from "react-i18next";
+import RenderHTML from 'react-native-render-html';
 
 
 const BookDetail = ({book, isVisible, onClose, onUpdate, onDelete}: {
@@ -41,6 +43,7 @@ const BookDetail = ({book, isVisible, onClose, onUpdate, onDelete}: {
     const {currentTheme} = useTheme();
     const bookDetailStyles = BookDetailStyles(currentTheme);
     const {t} = useTranslation();
+    const {width} = Dimensions.get('window');
 
     const handleSelectStatus = useCallback((status: BookStatus) => {
         setStatus(status);
@@ -114,13 +117,22 @@ const BookDetail = ({book, isVisible, onClose, onUpdate, onDelete}: {
                                         icon={isDescriptionExpanded ? faChevronUp : faChevronDown}
                                         textStyle={bookDetailStyles.sectionTitle}
                                     />
-                                    <View style={{flex:1}} onStartShouldSetResponder={() => true}>
+                                    <View style={{flex: 1}} onStartShouldSetResponder={() => true}>
                                         <ScrollView
                                             keyboardShouldPersistTaps="handled"
-                                            style={[bookDetailStyles.descriptionScroll, {maxHeight: isDescriptionExpanded ? 300 : 80}]}
+                                            style={[bookDetailStyles.descriptionScroll, {maxHeight: isDescriptionExpanded ? 5000 : 80}]}
                                             showsVerticalScrollIndicator={false}
                                         >
-                                            <Text style={bookDetailStyles.descriptionText}>{book.description}</Text>
+                                            <RenderHTML
+                                                tagsStyles={{
+                                                    body: {
+                                                        color: currentTheme.textColor,
+                                                        fontSize: 14,
+                                                    },
+                                                }}
+                                                contentWidth={width}
+                                                source={{html: book.description}}
+                                            />
                                         </ScrollView>
                                     </View>
                                     <View style={bookDetailStyles.metadataContainer}>
@@ -173,7 +185,7 @@ const BookDetail = ({book, isVisible, onClose, onUpdate, onDelete}: {
 
                                 <View style={bookDetailStyles.footer}>
                                     <Button
-                                        title={`${t('addTo', {ns: 'bookDetail'})} ${!status ? 'Wishlist' : statusLabels[status]}`}
+                                        title={`${t('addTo', {ns: 'bookDetail'})} ${!status ? statusLabels[BookStatus.Wishlist] : statusLabels[status]}`}
                                         onPress={() => onUpdate(status)}
                                         disabled={status === book.status}
                                         buttonStyle={[bookDetailStyles.wishlistButton, status === book.status && bookDetailStyles.wishlistButtonDisabled]}

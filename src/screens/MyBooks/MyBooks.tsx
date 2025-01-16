@@ -31,6 +31,14 @@ const MyBooks = () => {
         dispatch({type: 'SET_PAGE', payload: newValue});
     }, [])
 
+    const handleDeleteBook = useCallback((deleteBook: Book) => {
+        const books = state.currentBooks.filter((book) => book._id !== deleteBook._id);
+        dispatch({
+            type: 'SET_BOOKS',
+            payload: {books: books, totalPages: books.length},
+        });
+    }, [])
+
     const handleSearch = useCallback((newValue: string[]) => {
         dispatch({type: 'SET_SEARCH', payload: newValue[0]});
     }, [])
@@ -61,7 +69,10 @@ const MyBooks = () => {
             <View style={myBooksStyles.flatContainer}>
                 <FlatList
                     data={state.currentBooks}
-                    renderItem={({item}) => <BookCard {...item} />}
+                    renderItem={({item}) => <BookCard
+                        initialBook={item}
+                        handleDeleteBook={handleDeleteBook}
+                    />}
                     ListEmptyComponent={<EmptyList title={t('emptyTitle', {ns: 'myBooks'})}
                                                    description={t('emptyDescription', {ns: 'myBooks'})}/>}
                     keyExtractor={(item) => item.idGoogle}

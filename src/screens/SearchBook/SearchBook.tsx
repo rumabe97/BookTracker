@@ -54,7 +54,10 @@ const SearchBook = () => {
             <View style={searchBookStyles.flatContainer}>
                 <FlatList
                     data={state.currentBooks}
-                    renderItem={({item}) => <BookCard {...item} />}
+                    renderItem={({item}) => <BookCard
+                        initialBook={item}
+                        handleDeleteBook={()=> {return}}
+                    />}
                     ListEmptyComponent={<EmptyList title={t('emptyTitle', {ns: 'searchBooks'})}
                                                    description={t('emptyDescription', {ns: 'searchBooks'})}/>}
                     keyExtractor={(item) => item.idGoogle}

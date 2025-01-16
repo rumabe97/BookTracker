@@ -1,6 +1,6 @@
 {
   "name": "BookTracker",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -27,6 +27,7 @@
     "react-native-gesture-handler": "^2.20.0",
     "react-native-localize": "^3.3.0",
     "react-native-reanimated": "^3.15.4",
+    "react-native-render-html": "^6.3.4",
     "react-native-safe-area-context": "^4.11.0",
     "react-native-screens": "^3.34.0",
     "react-native-svg": "^15.8.0",

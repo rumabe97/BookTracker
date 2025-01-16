@@ -118,10 +118,6 @@ export const BookDetailStyles = (theme: ThemeType) => StyleSheet.create({
         borderRadius: 8,
         marginBottom: 15,
     },
-    descriptionText: {
-        color: theme.textColor,
-        fontSize: 14,
-    },
     metadataContainer: {
         flexDirection: 'column',
         justifyContent: 'space-between',

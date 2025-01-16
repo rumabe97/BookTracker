@@ -66,7 +66,10 @@ const HomeScreen = () => {
 
             <FlatList
                 data={state.currentBooks}
-                renderItem={({item}) => <BookCard {...item} />}
+                renderItem={({item}) => <BookCard
+                    initialBook={item}
+                    handleDeleteBook={()=> {return}}
+                />}
                 keyExtractor={(item) => item.idGoogle}
                 numColumns={2}
                 columnWrapperStyle={homeStyles.bookRow}

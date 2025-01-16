@@ -14,7 +14,7 @@ import {BookStatus} from "../../core/entities/BookStatus";
 import {useTranslation} from "react-i18next";
 import {statusLabels} from "../../core/entities/BookStatus/BookStatus.ts";
 
-const BookCard = (initialBook: Book) => {
+const BookCard = ({initialBook, handleDeleteBook}: { initialBook: Book, handleDeleteBook: (book: Book) => void }) => {
     const {currentTheme} = useTheme();
     const [modalVisible, setModalVisible] = useState(false);
     const [book, setBook] = useState(initialBook);
@@ -76,6 +76,7 @@ const BookCard = (initialBook: Book) => {
                         createdAt: undefined,
                         updatedAt: undefined
                     }
+                    handleDeleteBook(book);
                     setBook(result)
                 },
                 onCancel: () => {
@@ -88,7 +89,7 @@ const BookCard = (initialBook: Book) => {
 
     return (
         <View style={bookCardStyles.bookCard}>
-            {(book.status && book.status !== BookStatus.NoStatus && <View style={bookCardStyles.statusContainer}>
+            {(book?.status && book?.status !== BookStatus.NoStatus && <View style={bookCardStyles.statusContainer}>
                     <View style={[bookCardStyles.statusBadge, {backgroundColor: statusColors[book.status]}]}>
                         <Text style={bookCardStyles.statusText}>
                             {statusLabels[book.status]}
@@ -96,14 +97,14 @@ const BookCard = (initialBook: Book) => {
                     </View>
                 </View>
             )}
-            <Image source={{uri: book.coverImage ? book.coverImage : "https://via.placeholder.com/130x200.png",}}
+            <Image source={{uri: book?.coverImage ? book?.coverImage : "https://via.placeholder.com/130x200.png",}}
                    style={bookCardStyles.bookImage}/>
             <View style={bookCardStyles.bookInfo}>
                 <Text style={bookCardStyles.bookTitle}
-                      numberOfLines={1}>{book.title}</Text>
-                <Text style={bookCardStyles.bookAuthor}>{book.author}</Text>
+                      numberOfLines={1}>{book?.title}</Text>
+                <Text style={bookCardStyles.bookAuthor}>{book?.author}</Text>
                 <Text style={bookCardStyles.publishedDate}>
-                    {t('published', {ns: 'bookCard'})}: {new Date(book.publishedDate).toLocaleDateString('es-ES', {
+                    {t('published', {ns: 'bookCard'})}: {new Date(book?.publishedDate).toLocaleDateString('es-ES', {
                     day: '2-digit',
                     month: '2-digit',
                     year: 'numeric'
@@ -112,7 +113,7 @@ const BookCard = (initialBook: Book) => {
                 <View style={bookCardStyles.ratingContainer}>
                     <Text style={bookCardStyles.ratingStar}>★</Text>
                     <Text
-                        style={bookCardStyles.ratingText}>{book.averageRating ?? t('noRating', {ns: 'bookCard'})}</Text>
+                        style={bookCardStyles.ratingText}>{book?.averageRating ?? t('noRating', {ns: 'bookCard'})}</Text>
                 </View>
             </View>
             <Button
